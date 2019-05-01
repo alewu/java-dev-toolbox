@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>collection-util</artifactId>
+    <artifactId>json-util</artifactId>
 
-    <name>collection-util</name>
+    <name>json-util</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
@@ -26,20 +26,20 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+        <!-- JSON start -->
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.0</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.jodd</groupId>
-            <artifactId>jodd-core</artifactId>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
         </dependency>
+        <!-- JSON end -->
     </dependencies>
 
     <build>
