@@ -13,6 +13,7 @@
         <module>sdk-demo</module>
         <module>collection-util</module>
         <module>json-util</module>
+        <module>testdata-generator</module>
     </modules>
 
     <name>third-party-util</name>
