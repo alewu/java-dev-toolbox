@@ -1,13 +1,12 @@
 package com.ale;
 
 import com.ale.data.DataGenerator;
-import com.ale.data.User;
+import com.ale.data.bean.User;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,4 +1,4 @@
-package com.ale.data;
+package com.ale.data.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
