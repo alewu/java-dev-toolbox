@@ -14,6 +14,8 @@
         <module>collection-util</module>
         <module>json-util</module>
         <module>testdata-generator</module>
+        <module>xml-util</module>
+        <module>template-util</module>
     </modules>
 
     <name>third-party-util</name>
@@ -97,6 +99,25 @@
                 <version>${logback.version}</version>
             </dependency>
             <!-- logback end -->
+
+            <!-- xml start -->
+            <dependency>
+                <groupId>dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+            <dependency>
+                <groupId>sax</groupId>
+                <artifactId>sax</artifactId>
+                <version>2.0.1</version>
+            </dependency>
+            <!-- xml end -->
+
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.28</version>
+            </dependency>
 
             <dependency>
                 <groupId>cn.jpush.api</groupId>
