@@ -1,0 +1,11 @@
+sexs: [male, female]
+
+persons:
+  - !person
+    name: jack
+    sex: male
+    profession: programmer
+  - !person
+    name: rose
+    sex: female
+    profession: programmer
