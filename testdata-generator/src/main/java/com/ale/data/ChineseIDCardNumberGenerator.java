@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 /**
+ * @author alewu
  * 身份证号码
  * 1、号码的结构
  * 公民身份号码是特征组合码，由十七位数字本体码和一位校验码组成。排列顺序从左至右依次为：六位数字地址码，
