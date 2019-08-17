@@ -29,7 +29,8 @@ public class PathDemo {
         // 获取当前类的绝对路径；
         File f1 = new File(this.getClass().getResource("").getPath());
         System.out.println(f1);
-        File directory = new File("");//参数为空
+        // 参数为空
+        File directory = new File("");
         String courseFile = null;
         try {
             courseFile = directory.getCanonicalPath();

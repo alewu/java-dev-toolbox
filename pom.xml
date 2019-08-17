@@ -5,15 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ale</groupId>
-    <artifactId>third-party</artifactId>
+    <artifactId>third-party-util</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>io-util</module>
         <module>sdk-demo</module>
         <module>collection-util</module>
         <module>json-util</module>
-        <module>testdata-generator</module>
+        <module>data-generator</module>
         <module>xml-util</module>
         <module>template-util</module>
         <module>yaml-util</module>
@@ -80,8 +81,8 @@
                 <version>${gson.version}</version>
             </dependency>
             <!-- JSON end -->
-            <!-- logback start -->
 
+            <!-- logback start -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
