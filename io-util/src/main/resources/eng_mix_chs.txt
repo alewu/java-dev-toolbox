@@ -1,0 +1,2 @@
+最Master/Slave模式，称为Master机器，机器为Slave机器。
+Zookeeper引入了Leader、Follower、Observer三种角色，Zookeeper集群中的所有机器通过Leaser选举过程来选定一台被称为Leader的机器，Leader服务器为客户端提供写服务，Follower和Observer提供读服务，但是Observer不参与Leader选举过程，不参与写操作的"过半写成功"策略，Observer可以在不影响写性能的情况下提升集群的性能。

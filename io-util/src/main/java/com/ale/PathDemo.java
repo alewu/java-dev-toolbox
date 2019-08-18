@@ -19,9 +19,13 @@ public class PathDemo {
 
     public static void main(String[] args) {
         PathDemo pathDemo = new PathDemo();
+        System.out.println(PathDemo.getProPath());
         pathDemo.getFilePath();
     }
 
+    /**
+     * 获取当前类的所在工程路径
+     */
     public void getFilePath() {
         // 获取当前类的所在工程路径;
         File f0 = new File(this.getClass().getResource("/").getPath());
