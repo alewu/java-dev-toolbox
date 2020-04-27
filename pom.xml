@@ -18,6 +18,7 @@
         <module>xml-util</module>
         <module>template-util</module>
         <module>yaml-util</module>
+        <module>lang-util</module>
     </modules>
 
     <name>third-party-util</name>
