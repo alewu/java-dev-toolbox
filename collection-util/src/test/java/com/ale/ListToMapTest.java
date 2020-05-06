@@ -52,7 +52,7 @@ public class ListToMapTest {
 
     }
     @Test
-    public void testDuplicateKey() {
+    public void testResolvedDuplicateKey() {
         users.add(new User(1, "bob"));
         Map<Integer, User> collect1 = users.stream().collect(Collectors.toMap(User::getUserId, Function.identity(),
                                                                               (key1, key2) -> key2));
