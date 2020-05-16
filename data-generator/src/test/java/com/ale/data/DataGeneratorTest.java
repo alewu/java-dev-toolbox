@@ -1,7 +1,8 @@
 package com.ale.data;
 
 import com.google.common.base.Joiner;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 import java.util.List;
 

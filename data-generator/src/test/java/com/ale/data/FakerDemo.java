@@ -3,13 +3,15 @@ package com.ale.data;
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class FakerDemo {
     @Test
@@ -41,7 +43,6 @@ public class FakerDemo {
     @Test
     public void testFaker() {
         Faker faker = new Faker();
-
         String streetName = faker.address().streetName();
         String number = faker.address().buildingNumber();
         String city = faker.address().city();

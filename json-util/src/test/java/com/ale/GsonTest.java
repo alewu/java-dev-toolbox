@@ -4,7 +4,7 @@ package com.ale;
 import com.ale.bean.Dept;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.junit.Test;
+
 
 import java.util.Map;
 
@@ -66,7 +66,7 @@ public class GsonTest {
                 //禁止转义html标签
                 .disableHtmlEscaping()
                 //格式化输出
-                .setPrettyPrinting()
+                .setPrettyprintlng()
                 .create();
     }
 

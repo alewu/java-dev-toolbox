@@ -3,7 +3,8 @@ package com.ale;
 import com.ale.data.DataGenerator;
 import com.ale.data.bean.User;
 import com.google.common.collect.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 import java.util.List;
 
