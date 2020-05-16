@@ -1,7 +1,7 @@
 package com.ale;
 
 import com.google.common.io.Resources;
-import org.junit.Test;
+
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;

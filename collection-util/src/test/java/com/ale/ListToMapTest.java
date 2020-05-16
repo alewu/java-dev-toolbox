@@ -1,16 +1,20 @@
 package com.ale;
 
+import cn.hutool.core.lang.Assert;
 import com.ale.pojo.User;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+
 
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ListToMapTest {
     private static List userImmutableList = ImmutableList.of(new User(1, "jack"), new User(2, "rose"), new User(3,
@@ -29,7 +33,7 @@ public class ListToMapTest {
     @Test
     public void testUniqueIndex() {
         Map<Integer, User> immutableMap = Maps.uniqueIndex(userImmutableList, User::getUserId);
-        Assert.assertNotNull(immutableMap);
+        assertNotNull(immutableMap);
         immutableMap.entrySet().forEach(System.out::println);
     }
 
@@ -38,7 +42,7 @@ public class ListToMapTest {
         // Function.identity() 等价于 user -> user
         Object collect = userImmutableList.stream().collect(Collectors.toMap(User::getUserId, Function.identity()));
         Map<Integer, User> collect1 = users.stream().collect(Collectors.toMap(User::getUserId, user -> user));
-        Assert.assertNotNull(collect1);
+        assertNotNull(collect1);
         collect1.entrySet().forEach(System.out::println);
     }
 
@@ -47,7 +51,7 @@ public class ListToMapTest {
         users.add(new User(1, "bob"));
         Map<Integer, User> collect1 = users.stream().collect(Collectors.toMap(User::getUserId, Function.identity(),
                                                                               (key1, key2) -> key2));
-        Assert.assertNotNull(collect1);
+        assertNotNull(collect1);
         collect1.entrySet().forEach(System.out::println);
 
     }
@@ -56,7 +60,7 @@ public class ListToMapTest {
         users.add(new User(1, "bob"));
         Map<Integer, User> collect1 = users.stream().collect(Collectors.toMap(User::getUserId, Function.identity(),
                                                                               (key1, key2) -> key2));
-        Assert.assertNotNull(collect1);
+        assertNotNull(collect1);
         collect1.entrySet().forEach(System.out::println);
 
     }

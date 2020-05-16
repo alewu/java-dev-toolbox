@@ -22,10 +22,7 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>cn.jpush.api</groupId>
             <artifactId>jpush-client</artifactId>
