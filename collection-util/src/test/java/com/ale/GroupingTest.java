@@ -1,7 +1,9 @@
 package com.ale;
 
+import cn.hutool.core.util.CharUtil;
 import com.ale.pojo.Grouping;
 import com.github.javafaker.Faker;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -52,8 +54,12 @@ public class GroupingTest {
     @Test
     public void testGroupingByMultiCondition() {
         Map<String, List<Grouping>> filter =
-                groupings.stream().collect(Collectors.groupingBy(Grouping::getType));
+                groupings.stream().collect(Collectors.groupingBy(this::getKey));
         System.out.println(filter);
-        assertEquals(2, filter.size());
+        assertEquals(9, filter.size());
+    }
+
+    private String getKey(Grouping grouping) {
+        return StringUtils.join(CharUtil.UNDERLINE, grouping.getType(), grouping.getAddress());
     }
 }
