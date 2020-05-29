@@ -45,6 +45,15 @@ public class ListToMapTest {
         assertNotNull(collect1);
         collect1.entrySet().forEach(System.out::println);
     }
+    @Test
+    public void testToMap2() {
+        // Function.identity() 等价于 user -> user
+        Object collect = userImmutableList.stream().collect(Collectors.toMap(User::getUserId, User::getUserName));
+        System.out.println(collect);
+        Map<Integer, User> collect1 = users.stream().collect(Collectors.toMap(User::getUserId, user -> user));
+        assertNotNull(collect1);
+        collect1.entrySet().forEach(System.out::println);
+    }
 
     @Test
     public void testDuplicateKey() {
