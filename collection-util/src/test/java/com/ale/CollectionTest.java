@@ -1,9 +1,8 @@
 package com.ale;
 
-import com.google.common.collect.Collections2;
+import cn.hutool.core.collection.CollUtil;
 import com.google.common.collect.ImmutableList;
 import org.junit.jupiter.api.Test;
-
 
 import java.util.Collection;
 import java.util.List;
@@ -42,6 +41,18 @@ public class CollectionTest {
                                       .limit(6)
                                       .collect(Collectors.toList());
         assertEquals(expected, result);
+    }
+
+    @Test
+    public void testSets(){
+        List<Integer> expected = NUMBERS.subList(3, 9);
+        System.out.println(expected);
+        List<Integer> expected1 = NUMBERS.subList(1, 5);
+        System.out.println(expected1);
+        Collection<Integer> intersection = CollUtil.intersection(expected, expected1);
+        System.out.println(intersection);
+
+        System.out.println(CollUtil.disjunction(expected1, intersection));
     }
 
 }

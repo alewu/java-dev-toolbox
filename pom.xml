@@ -19,6 +19,7 @@
         <module>template-util</module>
         <module>yaml-util</module>
         <module>lang-util</module>
+        <module>string-demo</module>
     </modules>
 
     <name>third-party-util</name>
