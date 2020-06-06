@@ -3,6 +3,7 @@ package com.ale;
 import cn.hutool.core.util.CharUtil;
 import com.ale.pojo.Grouping;
 import com.github.javafaker.Faker;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author alewu
  * @date 2020/5/16
  */
+@Slf4j
 public class GroupingTest {
     private static final List<Grouping> groupings = new ArrayList<>();
 
@@ -49,7 +51,7 @@ public class GroupingTest {
 
         Map<String, List<String>> filter1 =
                 groupings.stream().collect(Collectors.groupingBy(Grouping::getType, Collectors.mapping(Grouping::getName, Collectors.toList())));
-        System.out.println(filter1);
+        log.info(String.valueOf(filter1));
         assertEquals(2, filter.size());
     }
 
@@ -58,7 +60,7 @@ public class GroupingTest {
     public void testGroupingByMultiCondition() {
         Map<String, List<Grouping>> filter =
                 groupings.stream().collect(Collectors.groupingBy(this::getKey));
-        System.out.println(filter);
+        log.info(String.valueOf(filter));
         assertEquals(9, filter.size());
     }
 
