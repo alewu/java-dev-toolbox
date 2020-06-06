@@ -9,9 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>io-util</artifactId>
+    <groupId>com.ale</groupId>
+    <artifactId>string-demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
-    <name>io-util</name>
+    <name>string-demo</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
@@ -21,8 +23,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-
     <dependencies>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -33,34 +35,21 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jodd</groupId>
-            <artifactId>jodd-core</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
+            <version>27.1-jre</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-io -->
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+            <version>3.7</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-        </dependency>
 
     </dependencies>
 
-
+    <build>
+    </build>
 </project>

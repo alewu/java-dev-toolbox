@@ -46,7 +46,10 @@ public class GroupingTest {
     public void testGroupingByOneCondition() {
         Map<String, List<Grouping>> filter =
                 groupings.stream().collect(Collectors.groupingBy(Grouping::getType));
-        System.out.println(filter);
+
+        Map<String, List<String>> filter1 =
+                groupings.stream().collect(Collectors.groupingBy(Grouping::getType, Collectors.mapping(Grouping::getName, Collectors.toList())));
+        System.out.println(filter1);
         assertEquals(2, filter.size());
     }
 
