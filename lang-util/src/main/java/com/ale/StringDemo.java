@@ -12,5 +12,8 @@ public class StringDemo {
         String s = StringUtils.joinWith(":", "jack", "rose", "bob");
         System.out.println(s);
         System.out.println(Double.valueOf(1.012).longValue());
+        Integer i = Integer.valueOf(1531111111);
+        System.out.println(i.equals(1531111111));
+
     }
 }
