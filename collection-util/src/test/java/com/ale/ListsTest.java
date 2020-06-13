@@ -32,4 +32,9 @@ public class ListsTest {
                 DynamicTest.dynamicTest("Multiply Test",
                                         () -> assertEquals(4, Math.multiplyExact(2, 2))));
     }
+    @Test
+    public void testss(){
+//        Stack
+
+    }
 }
