@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class StringSplitterTest {
@@ -37,7 +37,9 @@ public class StringSplitterTest {
         strings.forEach(System.out::println);
         List<String> strings1 = Splitter.on("/").omitEmptyStrings().trimResults().splitToList(url);
         strings1.forEach(System.out::println);
+        assertNotNull(strings1);
     }
+
     @Test
     public void test(){
         String text = "踩踩踩从<a href='www.baidu.com?linkId=12'>xx</a><a href='www.google.com?linkId=1225'>vvv</a>aaaa";
@@ -65,29 +67,4 @@ public class StringSplitterTest {
 
     }
 
-    @Test
-    public void testReplace(){
-        String format = "<Content>%s</Content>";
-        String xml = "<xml>\n" +
-                "  <ToUserName><![CDATA[o_cxxxsMUWXI6aG14]]></ToUserName>\n" +
-                "  <FromUserName><![CDATA[gh_xxx]]></FromUserName>\n" +
-                "  <CreateTime><![CDATA[1591961648]]></CreateTime>\n" +
-                "  <MsgType><![CDATA[text]]></MsgType>\n" +
-                "  <Content><![CDATA[踩踩踩从<a href='www.baidu.com'>xx</a>]]></Content>\n" +
-                "</xml> \n";
-        String format1 = String.format(format, "<!\\[CDATA\\[(.*?)\\]\\]>");
-        Pattern compile = Pattern.compile(format1);
-        Matcher m = compile.matcher(xml);
-
-        if(m.matches()) {
-            System.out.println(m.group(0));
-            System.out.println(m.group(1));
-            System.out.println(m.group(2));
-        }
-        List<String> all = ReUtil.findAllGroup1(compile, xml);
-        for (String s : all) {
-            System.out.println(s);
-        }
-
-    }
 }
