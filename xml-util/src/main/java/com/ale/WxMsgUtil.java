@@ -3,6 +3,7 @@ package com.ale;
 import cn.hutool.core.util.ReUtil;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.regex.Pattern;
 
 /**
@@ -51,5 +52,21 @@ public final class WxMsgUtil {
 
     public static List<String> getUrl(String wxXmlMsg) {
         return ReUtil.findAllGroup1(URL_COMPILE, wxXmlMsg);
+    }
+
+    /**
+     * 递归替换匹配的字符串
+     * @param src 原字符串
+     * @param replacementTemplate 替换模板
+     * @param queue 要替换的字符串
+     * @return 替换后的字符串
+     */
+    public static String recursionJoinMatchStr(String src, String replacementTemplate, Queue<String> queue) {
+        if (queue.isEmpty()) {
+            return src;
+        } else {
+            String value = ReUtil.replaceAll(src, queue.poll(), replacementTemplate);
+            return recursionJoinMatchStr(value, replacementTemplate, queue);
+        }
     }
 }
