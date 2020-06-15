@@ -1,13 +1,12 @@
 package com.ale;
 
-import cn.hutool.core.util.ReUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
+import java.util.ArrayDeque;
 import java.util.List;
-import java.util.Stack;
 
 class WxMsgUtilTest {
     public static long start;
@@ -32,13 +31,13 @@ class WxMsgUtilTest {
             "      <Title><![CDATA[title1]]></Title>\n" +
             "      <Description><![CDATA[description1]]></Description>\n" +
             "      <PicUrl><![CDATA[picurl]]></PicUrl>\n" +
-            "      <Url><![CDATA[url]]></Url>\n" +
+            "      <Url><![CDATA[www.google.com]]></Url>\n" +
             "    </item>\n" +
             "    <item>\n" +
             "      <Title><![CDATA[title2]]></Title>\n" +
             "      <Description><![CDATA[description2]]></Description>\n" +
             "      <PicUrl><![CDATA[picurl2]]></PicUrl>\n" +
-            "      <Url><![CDATA[url2]]></Url>\n" +
+            "      <Url><![CDATA[www.baidu.com]]></Url>\n" +
             "    </item>\n" +
             "  </Articles>\n" +
             "</xml>";
@@ -72,32 +71,15 @@ class WxMsgUtilTest {
     }
 
     @Test
-    void replaceUrl() {
-        List<String> url = WxMsgUtil.getUrl(NEWS_XML);
-        Stack<String> strings = new Stack<>();
-        for (String s : url) {
-            strings.push(s);
-        }
-        StringBuilder s1 = new StringBuilder();
-        for (String s : url) {
-            StringBuilder sb = new StringBuilder(ReUtil.replaceAll(NEWS_XML, s, "$0&uid=12"));
-            s1 = sb;
-        }
-//        System.out.println(sb);
-        System.out.println(url);
-    }
-
-    public  String recursion(StringBuilder sb, Stack<String> strings) {
-        if (strings.empty()) {
-            return "";
-        }
-//        strings.peek()
-//      return  new StringBuilder(ReUtil.replaceAll(NEWS_XML, "s", "$0&uid=12"));
-        return "";
+    void getToUserName() {
+        System.out.println(WxMsgUtil.getToUserName(NEWS_XML));
     }
 
     @Test
-    void getToUserName() {
-        System.out.println(WxMsgUtil.getToUserName(NEWS_XML));
+    void recursionJoinMatchStr() {
+        List<String> url = WxMsgUtil.getUrl(NEWS_XML);
+        String replacementTemplate = "$0".concat("&uuid=").concat("xx");
+        String s = WxMsgUtil.recursionJoinMatchStr(NEWS_XML, replacementTemplate, new ArrayDeque<>(url));
+        System.out.println(s);
     }
 }
