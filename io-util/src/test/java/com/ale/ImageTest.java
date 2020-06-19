@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.time.Instant;
 
 /**
  * @author alewu
@@ -70,17 +71,47 @@ public class ImageTest {
     @Test
     public void testPressImageCoo() {
         // 原图
-        File srcImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\8595798_160730747190_2.jpg");
+        File srcImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\110.jpg");
         // 水印图片
         File pressImg = FileUtil.file("C:\\Users\\win10\\Pictures\\1.jpg");
         // 输出
-        File destImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\1111111.jpg");
+        File destImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\111.jpg");
+        // 水印图片
+        File pressImg1 = FileUtil.file("C:\\Users\\win10\\Pictures\\2.jpg");
+        // 输出
+        File destImageFile1 = FileUtil.file("C:\\Users\\win10\\Pictures\\222.jpg");
         // 透明度
         float alpha = 1.0f;
         // 设置坐标在左上角
-        Image img =
-                Img.from(srcImageFile).setPositionBaseCentre(false).pressImage(ImgUtil.read(pressImg),
-                                                                               200, 200, 1.0f).getImg();
+        Img srcImg = Img.from(srcImageFile).setPositionBaseCentre(false);
+        Image img = srcImg.pressImage(ImgUtil.read(pressImg),200, 200, alpha).getImg();
         ImgUtil.write(img, FileUtil.file(destImageFile));
+        Image img1 = srcImg.pressImage(ImgUtil.read(pressImg1),200, 200, alpha).getImg();
+        ImgUtil.write(img1, FileUtil.file(destImageFile1));
+    }
+
+    @Test
+    public void testPressImage1() {
+        // 原图
+        File srcImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\110.jpg");
+        // 水印图片
+        File pressImg = FileUtil.file("C:\\Users\\win10\\Pictures\\1.jpg");
+        // 输出
+        File destImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\111.jpg");
+        // 水印图片
+        File pressImg1 = FileUtil.file("C:\\Users\\win10\\Pictures\\2.jpg");
+        // 输出
+        File destImageFile1 = FileUtil.file("C:\\Users\\win10\\Pictures\\222.jpg");
+        // 透明度
+        float alpha = 1.0f;
+        // 设置坐标在左上角
+        long start = Instant.now().toEpochMilli();
+        Img srcImg = Img.from(srcImageFile).setPositionBaseCentre(false);
+        long end = Instant.now().toEpochMilli();
+        System.out.println(end- start);
+        Image img = srcImg.pressImage(ImgUtil.read(pressImg),200, 200, alpha).getImg();
+        ImgUtil.write(img, FileUtil.file(destImageFile));
+        Image img1 = srcImg.pressImage(ImgUtil.read(pressImg1),200, 200, alpha).getImg();
+        ImgUtil.write(img1, FileUtil.file(destImageFile1));
     }
 }
