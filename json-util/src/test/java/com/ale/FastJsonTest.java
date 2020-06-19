@@ -1,14 +1,16 @@
 package com.ale;
 
 
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.ReUtil;
 import com.ale.bean.Fee;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.jupiter.api.Test;
 
-
 import java.util.List;
+import java.util.Map;
 
 public class FastJsonTest {
 
@@ -46,6 +48,83 @@ public class FastJsonTest {
             System.out.println(o);
         }
 
+    }
+
+    @Test
+    public void test111() {
+        String news = "{\"articles\":[{\"description\":\"啊手动阀\",\"title\":\"安抚a\",\"url\":\"http://sp.upuptec" +
+                ".cn/h5/index.html?linkId=1185\"}]}";
+        String s = ReUtil.replaceAll(news, "linkId=\\d+", "$0&uid=12");
+        System.out.println(s);
+    }
+
+    @Test
+    public void testJsonToMap() {
+        String a = "{\n" +
+                "    \"text\": {\n" +
+                "        \"content\": \"啊啊<a href='http://sp.upuptec.cn/h5/index.html?linkId=1185'>请求</a>\"\n" +
+                "    },\n" +
+                "    \"msgtype\": \"text\"\n" +
+                "}";
+
+        Map map = JSONObject.parseObject(a, Map.class);
+        //  Map<String, Object> map = JSONObject.parseObject(a);
+        map.put("touser", "e.getOpenid()");
+        map.put("appid", "aa");
+        map.put("nickName", "e.getNickname()");
+
+        Map contentMap = (Map) map.get("text");
+        String content1 = MapUtil.getStr(contentMap, "contentMap");
+        String newContent = ReUtil.replaceAll(content1, "linkId=\\d+", "$0&uid=".concat(String.valueOf(11)));
+        contentMap.put("contentMap", newContent);
+
+
+        String s1 = JSON.toJSONString(map);
+        System.out.println(s1);
+    }
+
+    @Test
+    public void testJsonToMap1() {
+        String json = "{\n" +
+                "    \"text\": {\n" +
+                "        \"content\": \"啊啊<a href='http://sp.upuptec.cn/h5/index.html?linkId=1185'>请求</a>\"\n" +
+                "    },\n" +
+                "    \"msgtype\": \"text\"\n" +
+                "}";
+
+        Map<String, Object> map = JSONObject.parseObject(json);
+        map.put("touser", "xxx");
+        map.put("appid", "aa");
+        map.put("nickName", "xxx");
+
+        JSONObject contentJSONObject = (JSONObject) map.get("text");
+        String content = contentJSONObject.getString("content");
+        String newContent = ReUtil.replaceAll(content, "linkId=\\d+", "$0&uid=".concat(String.valueOf(11)));
+        contentJSONObject.put("content", newContent);
+
+
+        String s1 = JSON.toJSONString(map);
+        System.out.println(s1);
+    }
+
+    @Test
+    public void testMapToJsonObject() {
+        String json = "{\n" +
+                "    \"text\": {\n" +
+                "        \"content\": \"啊啊<a href='http://sp.upuptec.cn/h5/index.html?linkId=1185'>请求</a>\"\n" +
+                "    },\n" +
+                "    \"msgtype\": \"text\"\n" +
+                "}";
+
+        Map<String, Object> map = JSONObject.parseObject(json);
+
+        JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(map));
+        String text = jsonObject.getString("text");
+        String newContent = ReUtil.replaceAll(text, "linkId=\\d+", "$0&uid=".concat(String.valueOf(11)));
+
+        jsonObject.put("text", newContent);
+        String s1 = JSON.toJSONString(map);
+        System.out.println(s1);
     }
 
 }
