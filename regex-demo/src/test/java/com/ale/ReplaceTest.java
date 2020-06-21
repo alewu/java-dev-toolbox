@@ -3,6 +3,10 @@ package com.ale;
 import cn.hutool.core.util.ReUtil;
 import org.junit.jupiter.api.Test;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ReplaceTest {
@@ -39,14 +43,29 @@ public class ReplaceTest {
     public void test(){
         String content = "ZZZaaabbbccc中文1234";
         //通过正则查找到字符串，然后把匹配到的字符串加入到replacementTemplate中，$1表示分组1的字符串
-        System.out.println("replaceAll: "+ ReUtil.replaceAll(content, "(\\d+)", "->$1<-"));
+        System.out.println("replaceAll: " + ReUtil.replaceAll(content, "(\\d+)", "->$1<-"));
 
     }
 
     @Test
-    public void testMatchAndReplace(){
+    public void testMatchAndReplace() {
         String replaceAll = ReUtil.replaceAll(NEWS_XML, "(linkId=\\d+)", "$1&uid=12");
-        System.out.println("replaceAll: "+ replaceAll);
+        System.out.println("replaceAll: " + replaceAll);
         assertNotNull(replaceAll);
+    }
+
+    @Test
+    public void testMatchAndReplaceByJava() {
+        Pattern p = Pattern.compile("Indian");
+        Matcher m = p.matcher("One little Indian,two little Indian,three little Indian");
+        StringBuffer sb = new StringBuffer();
+        boolean result = m.find();
+        while (result) {//如果匹配成功就替换
+            m.appendReplacement(sb, "Chinese");
+            result = m.find();//继续下一步匹配
+        }
+        //		m.appendTail(sb);
+        System.out.println(sb.toString());
+        assertEquals("One little Chinese,two little Chinese,three little Chinese", sb.toString());
     }
 }
