@@ -1,12 +1,15 @@
 package com.ale;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,9 +35,13 @@ public class ListsTest {
                 DynamicTest.dynamicTest("Multiply Test",
                                         () -> assertEquals(4, Math.multiplyExact(2, 2))));
     }
+
     @Test
-    public void testss(){
-//        Stack
+    public void testss() {
+        //        Stack
+        List<Boolean> booleans = Lists.newArrayList(true, true, true, true, true, false, false, false);
+        long count = booleans.stream().filter(aBoolean -> Objects.equals(aBoolean, Boolean.TRUE)).count();
+        System.out.println(count);
 
     }
 }
