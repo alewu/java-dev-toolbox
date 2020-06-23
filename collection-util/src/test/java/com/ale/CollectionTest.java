@@ -1,7 +1,10 @@
 package com.ale;
 
 import cn.hutool.core.collection.CollUtil;
+import com.ale.pojo.Pig;
+import com.ale.pojo.User;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
@@ -53,6 +56,22 @@ public class CollectionTest {
         System.out.println(intersection);
 
         System.out.println(CollUtil.disjunction(expected1, intersection));
+    }
+
+    @Test
+    public void test(){
+        List<User> users = Lists.newArrayList();
+        for (int i = 0; i < 100000; i++) {
+            User user = new User(i, "");
+            users.add(user);
+        }
+        List<Pig> pigs = users.parallelStream().map(user -> {
+            Pig pig = new Pig();
+            pig.setId(user.getUserId());
+            pig.setPigName("");
+            return pig;
+        }).collect(Collectors.toList());
+        System.out.println(pigs);
     }
 
 }
