@@ -4,9 +4,9 @@ import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
 import org.junit.jupiter.api.Test;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 public class DateTest {
     @Test
@@ -30,6 +30,32 @@ public class DateTest {
         System.out.println(DateUtil.date(timeStamp));
         System.out.println(DateUtil.date(1592895414719L));
         System.out.println(Instant.now().toEpochMilli());
+    }
+
+    @Test
+    public void testOffset(){
+        Integer remainSecondsOneDay = getRemainSecondsOneDay(new Date());
+        System.out.println(remainSecondsOneDay);
+    }
+
+    public static Integer getRemainSecondsOneDay(Date currentDate) {
+        LocalDateTime midnight = LocalDateTime.ofInstant(currentDate.toInstant(),ZoneId.systemDefault())
+                                              .plusDays(1).withHour(0).withMinute(0)
+                                              .withSecond(0).withNano(0);
+        LocalDateTime currentDateTime = LocalDateTime.ofInstant(currentDate.toInstant(),
+                                                                ZoneId.systemDefault());
+        System.out.println(midnight);
+        System.out.println(currentDate);
+        long seconds = ChronoUnit.SECONDS.between(currentDateTime, midnight);
+        return (int) seconds;
+    }
+
+    @Test
+    public void testBeginOfDate(){
+        LocalDateTime today_start = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);//当天零点
+        LocalDateTime today_end = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);//当天零点
+        System.out.println(today_start);
+        System.out.println(today_end);
     }
 }
 

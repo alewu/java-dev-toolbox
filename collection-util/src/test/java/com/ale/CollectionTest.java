@@ -47,19 +47,19 @@ public class CollectionTest {
     }
 
     @Test
-    public void testSets(){
-        List<Integer> expected = NUMBERS.subList(3, 9);
-        System.out.println(expected);
-        List<Integer> expected1 = NUMBERS.subList(1, 5);
-        System.out.println(expected1);
-        Collection<Integer> intersection = CollUtil.intersection(expected, expected1);
-        System.out.println(intersection);
+    public void testSets() {
+        List<Integer> one = NUMBERS.subList(7, 9);
+        System.out.println("one" + one);
+        List<Integer> two = NUMBERS.subList(1, 5);
+        System.out.println("two" + two);
+        Collection<Integer> intersection = CollUtil.intersection(one, two);
+        System.out.println("intersection:" + intersection);
 
-        System.out.println(CollUtil.disjunction(expected1, intersection));
+        System.out.println("disjunction" + CollUtil.disjunction(two, intersection));
     }
 
     @Test
-    public void test(){
+    public void test() {
         List<User> users = Lists.newArrayList();
         for (int i = 0; i < 100000; i++) {
             User user = new User(i, "");
