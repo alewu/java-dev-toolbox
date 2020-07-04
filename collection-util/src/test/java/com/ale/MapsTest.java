@@ -5,8 +5,9 @@ import com.ale.data.bean.User;
 import com.google.common.collect.*;
 import org.junit.jupiter.api.Test;
 
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author alewu
@@ -49,6 +50,30 @@ public class MapsTest {
     @Test
     public void testImmutableMap() {
         ImmutableMap<String, String> map = ImmutableMap.of("key1", "value1", "key2", "value2");
+    }
+
+    @Test
+    public void testEquals(){
+        Map<String, Object> map1 = new HashMap<>();
+        map1.put("a", 1);
+        map1.put("b", 2);
+        map1.put("c", 2);
+        Map<String, Object> map2 = new HashMap<>();
+        map2.put("a", 1);
+        map2.put("b", 2);
+        map2.put("c", 2);
+        System.out.println(map1.equals(map2));
+
+        Map<String, Object> map3 = new HashMap<>();
+        map3.put("a", "111");
+        map3.put("b", "211");
+        map3.put("c", "211");
+        Map<String, Object> map4 = new HashMap<>();
+        map4.put("a", "111");
+        map4.put("b", "211");
+        map4.put("c", "211");
+        System.out.println(map3.equals(map4));
+
     }
 
 
