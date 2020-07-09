@@ -18,12 +18,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author alewu
  * @since 2019/4/30 22:47
  */
-public class ListsTest {
+ class ListsTest {
     /**
      * 应用场景：构造一个不可变的list，用来作为测试数据
      */
     @Test
-    public void test() {
+     void test() {
         ImmutableList<String> list = ImmutableList.of("a", "b", "c", "d");
     }
 
@@ -37,7 +37,7 @@ public class ListsTest {
     }
 
     @Test
-    public void testss() {
+     void testss() {
         //        Stack
         List<Boolean> booleans = Lists.newArrayList(true, true, true, true, true, false, false, false);
         long count = booleans.stream().filter(aBoolean -> Objects.equals(aBoolean, Boolean.TRUE)).count();

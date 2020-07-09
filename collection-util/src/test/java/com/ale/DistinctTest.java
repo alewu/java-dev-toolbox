@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  * List集合去重方式及效率对比
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class DistinctTest {
+ class DistinctTest {
     static List<Integer> list = Lists.newArrayList();
     private static final Stopwatch sw = Stopwatch.createStarted();
     private static final String template = "{} 去重时间: {} 豪秒";
@@ -36,7 +36,7 @@ public class DistinctTest {
     @ParameterizedTest(name = "run #{index}")
     @MethodSource("listProvider")
     @Order(0)
-    public void testDistinctBySets(List<Integer> list) {
+     void testDistinctBySets(List<Integer> list) {
         sw.reset().start();
         Sets.newHashSet(list);
         System.out.println(StrUtil.format(template,"Sets", sw.elapsed(TimeUnit.MILLISECONDS)));
@@ -49,7 +49,7 @@ public class DistinctTest {
     @ParameterizedTest(name = "run #{index}")
     @MethodSource("listProvider")
     @Order(1)
-    public void testDistinctByHuToolColl(List<Integer> list) {
+     void testDistinctByHuToolColl(List<Integer> list) {
         sw.reset().start();
         CollUtil.distinct(list);
         System.out.println(StrUtil.format(template,"HuToolColl", sw.elapsed(TimeUnit.MILLISECONDS)));
@@ -62,7 +62,7 @@ public class DistinctTest {
     @ParameterizedTest(name = "run #{index}")
     @MethodSource("listProvider")
     @Order(2)
-    public void testDistinctByHashSet(List<Integer> list) {
+     void testDistinctByHashSet(List<Integer> list) {
         sw.reset().start();
         HashSet<Integer> set = new HashSet<>(list);
         //把List集合所有元素清空
@@ -79,7 +79,7 @@ public class DistinctTest {
     @ParameterizedTest(name = "run #{index}")
     @MethodSource("listProvider")
     @Order(3)
-    public void testDistinctByTreeSet(List<Integer> list) {
+     void testDistinctByTreeSet(List<Integer> list) {
         sw.reset().start();
         TreeSet<Integer> set = new TreeSet<>(list);
         //把List集合所有元素清空
@@ -96,7 +96,7 @@ public class DistinctTest {
     @ParameterizedTest(name = "run #{index}")
     @MethodSource("listProvider")
     @Order(4)
-    public void testDistinctByStream(List<Integer> list) {
+     void testDistinctByStream(List<Integer> list) {
         sw.reset().start();
         list.stream().distinct().collect(Collectors.toList());
         System.out.println(StrUtil.format(template, "Stream", sw.elapsed(TimeUnit.MILLISECONDS)));
@@ -109,7 +109,7 @@ public class DistinctTest {
     @ParameterizedTest(name = "run #{index}")
     @MethodSource("listProvider")
     @Order(5)
-    public void testDistinctByContains(List<Integer> list) {
+     void testDistinctByContains(List<Integer> list) {
         sw.reset().start();
         List<Integer> newList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -130,7 +130,7 @@ public class DistinctTest {
     @ParameterizedTest(name = "run #{index}")
     @MethodSource("listProvider")
     @Order(6)
-    public void testDistinctBy2For(List<Integer> list) {
+     void testDistinctBy2For(List<Integer> list) {
         sw.reset().start();
         for (int i = 0; i < list.size(); i++) {
             for (int j = i + 1; j < list.size(); j++) {

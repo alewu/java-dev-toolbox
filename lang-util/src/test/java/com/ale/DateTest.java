@@ -57,5 +57,10 @@ public class DateTest {
         System.out.println(today_start);
         System.out.println(today_end);
     }
+
+    @Test
+    public void testOffsetMinute(){
+        System.out.println(DateUtil.offsetMinute(new Date(), 5));
+    }
 }
 
