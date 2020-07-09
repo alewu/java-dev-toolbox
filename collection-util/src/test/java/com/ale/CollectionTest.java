@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author alewu
  * @since 2019/4/30 22:50
  */
-public class CollectionTest {
+ class CollectionTest {
     private static final ImmutableList<Integer> NUMBERS = ImmutableList.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
     /**
@@ -25,11 +25,11 @@ public class CollectionTest {
      * 应用场景：分页,与subList的替换
      */
     @Test
-    public void testStreamPage() {
+     void testStreamPage() {
         System.out.println(page(4, 2));
     }
 
-    public List<Integer> page(int curPage, int pageSize) {
+     List<Integer> page(int curPage, int pageSize) {
         return NUMBERS.stream().skip((curPage - 1) * pageSize).limit(pageSize).collect(Collectors.toList());
     }
 
@@ -37,7 +37,7 @@ public class CollectionTest {
      * 可以截取List中的某一部分
      */
     @Test
-    public void testSubList() {
+     void testSubList() {
         List<Integer> expected = NUMBERS.subList(3, 9);
         List<Integer> result = NUMBERS.stream()
                                       .skip(3)
@@ -47,7 +47,7 @@ public class CollectionTest {
     }
 
     @Test
-    public void testSets() {
+     void testSets() {
         List<Integer> one = NUMBERS.subList(7, 9);
         System.out.println("one" + one);
         List<Integer> two = NUMBERS.subList(1, 5);
@@ -59,7 +59,7 @@ public class CollectionTest {
     }
 
     @Test
-    public void test() {
+     void test() {
         List<User> users = Lists.newArrayList();
         for (int i = 0; i < 100000; i++) {
             User user = new User(i, "");

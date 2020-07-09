@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FilterTest {
+ class FilterTest {
     private static final ImmutableList<Integer> NUMBERS = ImmutableList.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
     @DisplayName("Guava Collections2")
     @Test
-    public void test() {
+     void test() {
         List<Integer> numbers = ImmutableList.of(1, 2, 3);
         Collection<Integer> filter = Collections2.filter(NUMBERS, i -> !numbers.contains(i));
         System.out.println(filter);
@@ -27,7 +27,7 @@ public class FilterTest {
 
     @DisplayName("Stream")
     @Test
-    public void testStream() {
+     void testStream() {
         List<Integer> numbers = ImmutableList.of(1, 2, 3);
         Collection<Integer> filter =
                 NUMBERS.stream().filter(integer -> !numbers.contains(integer)).collect(Collectors.toList());
@@ -37,7 +37,7 @@ public class FilterTest {
 
     @DisplayName("CollUtil")
     @Test
-    public void testCollUtil() {
+     void testCollUtil() {
         List<Integer> numbers = ImmutableList.of(1, 2, 3);
         List<Integer> filter = CollUtil.filter(NUMBERS, (Editor<Integer>) integer -> {
             if (!numbers.contains(integer)) {

@@ -24,11 +24,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @date 2020/5/16
  */
 @Slf4j
-public class GroupingTest {
+ class GroupingTest {
     private static final List<Grouping> groupings = new ArrayList<>();
 
     @BeforeEach
-    public void init() {
+     void init() {
         //设置 语言 ，地区
         Locale local = new Locale("zh", "CN");
         //创建对象
@@ -45,7 +45,7 @@ public class GroupingTest {
 
     @DisplayName("GroupingByOneCondition")
     @Test
-    public void testGroupingByOneCondition() {
+     void testGroupingByOneCondition() {
         Map<String, List<Grouping>> filter =
                 groupings.stream().collect(Collectors.groupingBy(Grouping::getType));
 
@@ -57,7 +57,7 @@ public class GroupingTest {
 
     @DisplayName("GroupingByMultiCondition")
     @Test
-    public void testGroupingByMultiCondition() {
+     void testGroupingByMultiCondition() {
         Map<String, List<Grouping>> filter =
                 groupings.stream().collect(Collectors.groupingBy(this::getKey));
         log.info(String.valueOf(filter));
