@@ -24,7 +24,7 @@ public class FreemarkerDemo {
 
         /* Create and adjust the configuration singleton */
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_28);
-        cfg.setDirectoryForTemplateLoading(new File("E:\\code\\personal\\third-party-util\\template-util\\src\\main" +
+        cfg.setDirectoryForTemplateLoading(new File("E:\\code\\personal\\java-dev-toolbox\\template-util\\src\\main" +
                                                             "\\java\\com\\ale\\"));
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
