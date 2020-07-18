@@ -1,6 +1,7 @@
 package com.ale.demo;
 
 import cn.hutool.core.util.ReUtil;
+import com.ale.pojo.Condition;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -30,4 +31,13 @@ public class DequeDemo {
         }
     }
 
+    public static String recursionJoinMatchStr(String src, Queue<Condition> queue) {
+        if (queue.isEmpty()) {
+            return src;
+        } else {
+            Condition condition = queue.poll();
+            String value = ReUtil.replaceAll(src, condition.getIndex(), condition.getReplacement());
+            return recursionJoinMatchStr(value, queue);
+        }
+    }
 }

@@ -20,4 +20,12 @@ public class StringFormatTest {
                                              planet, new Date(), event);
         System.out.println(result);
     }
+
+    @Test
+    public void test(){
+        Object[] strings = new Object[]{"a", "b", "c"};
+        String result = MessageFormat.format("At {1} on {1}, there was {2} on planet {0}.",
+                                             strings);
+        System.out.println(result);
+    }
 }

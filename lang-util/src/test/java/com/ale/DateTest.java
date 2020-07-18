@@ -8,23 +8,23 @@ import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-public class DateTest {
+ class DateTest {
     @Test
-    public void testTimestamps(){
+     void testTimestamps(){
         long newScore = System.currentTimeMillis() + 5400 * 1000;
         System.out.println(Instant.ofEpochMilli(newScore).atZone(ZoneId.of("Asia/Shanghai")));
         System.out.println(DateUtil.date(newScore));
     }
 
     @Test
-    public void testFormater(){
+     void testFormater(){
         System.out.println(DateUtil.format(DateUtil.date(),"yyyyMMddHHmm"));
 
         System.out.println(LocalDate.now());
     }
 
     @Test
-    public void test(){
+     void test(){
         System.out.println(DateUtil.date(1592768108711L));
         final long timeStamp = DateUtil.offset(DateUtil.date(), DateField.SECOND, 2128).getTime();
         System.out.println(DateUtil.date(timeStamp));
@@ -33,12 +33,12 @@ public class DateTest {
     }
 
     @Test
-    public void testOffset(){
+     void testOffset(){
         Integer remainSecondsOneDay = getRemainSecondsOneDay(new Date());
         System.out.println(remainSecondsOneDay);
     }
 
-    public static Integer getRemainSecondsOneDay(Date currentDate) {
+     static Integer getRemainSecondsOneDay(Date currentDate) {
         LocalDateTime midnight = LocalDateTime.ofInstant(currentDate.toInstant(),ZoneId.systemDefault())
                                               .plusDays(1).withHour(0).withMinute(0)
                                               .withSecond(0).withNano(0);
@@ -51,7 +51,7 @@ public class DateTest {
     }
 
     @Test
-    public void testBeginOfDate(){
+     void testBeginOfDate(){
         LocalDateTime today_start = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);//当天零点
         LocalDateTime today_end = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);//当天零点
         System.out.println(today_start);
@@ -59,8 +59,25 @@ public class DateTest {
     }
 
     @Test
-    public void testOffsetMinute(){
+     void testOffsetMinute(){
         System.out.println(DateUtil.offsetMinute(new Date(), 5));
+    }
+    
+    @Test
+    void testBetween(){
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("计算两个时间的差：");
+        LocalDateTime end = LocalDateTime.now().minusMinutes(1);
+        Duration duration = Duration.between(now,end);
+        long days = duration.toDays(); //相差的天数
+        long hours = duration.toHours();//相差的小时数
+        long minutes = duration.toMinutes();//相差的分钟数
+        long millis = duration.toMillis();//相差毫秒数
+        long nanos = duration.toNanos();//相差的纳秒数
+        System.out.println(now);
+        System.out.println(end);
+
+        System.out.println("相差【 "+days+"天："+hours+" 小时："+minutes+" 分钟："+millis+" 毫秒："+nanos+" 纳秒】");
     }
 }
 
