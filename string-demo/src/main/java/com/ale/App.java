@@ -1,6 +1,11 @@
 package com.ale;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+
 import java.text.DecimalFormat;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Hello world!
@@ -19,7 +24,22 @@ public class App {
                 "  <MsgType><![CDATA[text]]></MsgType>\n" +
                 "  <Content><![CDATA[踩踩踩从<a href='http://sp.upuptec.cn/h5/index.html?linkId=1187'>xx</a>]]></Content>\n" +
                 "</xml> ";
-        System.out.println(xml.replace("踩踩踩从<a href='http://sp.upuptec.cn/h5/index.html?linkId=1187'>xx</a>", "踩踩踩从<a href='http://sp.upuptec.cn/h5/index.html?linkId=1187&uid=75'>xx</a>"));
+//        System.out.println(xml.replace("踩踩踩从<a href='http://sp.upuptec.cn/h5/index.html?linkId=1187'>xx</a>", "踩踩踩从<a href='http://sp.upuptec.cn/h5/index.html?linkId=1187&uid=75'>xx</a>"));
 
+        List<String> strings = ImmutableList.of("1", "2");
+        Map<String, String> map = ImmutableMap.of("1", "ToUserName","2", "FromUserName");
+        User user = new User();
+        user.setContent(xml);
+        String content = user.getContent();
+        for (String string : strings) {
+            content = content.replace(map.get(string), "0");
+//            System.out.println(content);
+        }
+
+        System.out.println(content);
+
+        System.out.println(user.getContent());
+
+        System.out.println(xml);
     }
 }
