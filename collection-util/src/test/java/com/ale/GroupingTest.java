@@ -48,12 +48,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
      void testGroupingByOneCondition() {
         Map<String, List<Grouping>> filter =
                 groupings.stream().collect(Collectors.groupingBy(Grouping::getType));
-
-        Map<String, List<String>> filter1 =
-                groupings.stream().collect(Collectors.groupingBy(Grouping::getType, Collectors.mapping(Grouping::getName, Collectors.toList())));
-        log.info(String.valueOf(filter1));
+        log.info(String.valueOf(filter));
         assertEquals(2, filter.size());
     }
+
+    @DisplayName("GroupingByOneConditionAndDeal")
+    @Test
+    void testGroupingByOneConditionAndDeal() {
+        Map<String, List<String>> filter =
+                groupings.stream().collect(Collectors.groupingBy(Grouping::getType, Collectors.mapping(Grouping::getName, Collectors.toList())));
+        log.info(String.valueOf(filter));
+        assertEquals(2, filter.size());
+    }
+
 
     @DisplayName("GroupingByMultiCondition")
     @Test

@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
  * Unit test for simple App.
  */
 @Slf4j
-public class MultiTaskTest {
+class MultiTaskTest {
 
     /**
      * 使用map保存对应的CompletableFuture，然后在后面获取结果
      */
     @Test
-    public void test() {
+    void test() {
         Executor executor = ExecutorUtil.getExecutor();
 
         long start = Instant.now().getEpochSecond();
@@ -55,7 +55,7 @@ public class MultiTaskTest {
      * 直接存在一个list中，然后在后面获取
      */
     @Test
-    public void testMap() {
+    void testMap() {
 
         Executor executor = ExecutorUtil.getExecutor();
 
@@ -76,7 +76,7 @@ public class MultiTaskTest {
     }
 
     @Test
-    public void testThenApply() {
+    void testThenApply() {
         Executor executor = ExecutorUtil.getExecutor();
 
         long start = Instant.now().getEpochSecond();
