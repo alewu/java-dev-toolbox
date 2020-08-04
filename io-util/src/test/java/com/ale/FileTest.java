@@ -23,4 +23,19 @@ class FileTest {
         TimeUnit.SECONDS.sleep(6);
         Files.deleteIfExists(file.toPath());
     }
+
+    @Test
+    void test1() throws IOException {
+        Path dir = Files.createTempDirectory("my-dir");
+        Path fileToCreatePath = dir.resolve("test-file.txt");
+        System.out.println("File to create path: " + fileToCreatePath);
+        Path newFilePath = Files.createFile(fileToCreatePath);
+        System.out.println("New file created: " + newFilePath);
+        System.out.println("New File exits: " + Files.exists(newFilePath));
+    }
+    
+    @Test
+    void testexists(){
+        
+    }
 }
