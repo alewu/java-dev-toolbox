@@ -51,11 +51,11 @@ public class ImageTest {
     @Test
     public void testPressImage() {
         // 原图
-        File srcImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\8595798_160730747190_2.jpg");
+        File srcImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\055b32590766d1fbee35f0660fc3c8c.jpg");
         // 水印图片
-        BufferedImage pressImg = ImgUtil.read(FileUtil.file("C:\\Users\\win10\\Pictures\\1.jpg"));
+        BufferedImage pressImg = ImgUtil.read(FileUtil.file("C:\\Users\\win10\\Pictures\\5ffed353bd253911f1f1a38939d2668.png"));
         // 输出
-        File destImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\1111111.jpg");
+        File destImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\1test.jpg");
         // 透明度
         float alpha = 1.0f;
         ImgUtil.pressImage(srcImageFile, destImageFile, pressImg,
