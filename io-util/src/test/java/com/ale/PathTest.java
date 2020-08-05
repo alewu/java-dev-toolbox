@@ -2,6 +2,8 @@ package com.ale;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -26,5 +28,14 @@ class PathTest {
         Path path2 = Paths.get("g:", "publish" , "codes");
         System.out.println(path2);
 
+    }
+
+    @Test
+    void testPath() throws IOException {
+        Path tmp = Paths.get("tmp", "a","qrcode.jpg");
+        Path parent = tmp.getParent();
+        if (parent != null) {
+            Files.createDirectories(parent);
+        }
     }
 }

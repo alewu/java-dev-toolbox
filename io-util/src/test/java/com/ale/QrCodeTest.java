@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
 
@@ -18,9 +20,13 @@ class QrCodeTest {
         long start = Instant.now().toEpochMilli();
 //        QrConfig config = new QrConfig(100, 100);
 //        config.setMargin(0);
-        File tmp = Paths.get("tmp", "qrcode.jpg").toFile();
-//        Files.createFile(tmp, "")
-        File generate = QrCodeUtil.generate("https://wxe898b8e80c198a95.taotew.cn/t/2580349", 100, 100, tmp);
+        Path tmp = Paths.get("tmp", "a","qrcode.jpg");
+        Path parent = tmp.getParent();
+        if (parent != null) {
+            Files.createDirectories(parent);
+        }
+        //        Files.createFile(tmp, "")
+        File generate = QrCodeUtil.generate("https://wxe898b8e80c198a95.taotew.cn/t/2580349", 100, 100, tmp.toFile());
         System.out.println(generate.getAbsolutePath());
         System.out.println(Instant.now().toEpochMilli() - start);
     }
