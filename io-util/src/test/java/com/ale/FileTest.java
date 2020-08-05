@@ -1,5 +1,6 @@
 package com.ale;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -35,7 +36,8 @@ class FileTest {
     }
     
     @Test
-    void testexists(){
-        
+    void testExists(){
+        boolean exists = Files.exists(Paths.get("tmp", "qrcode.jpg"));
+        Assertions.assertTrue(exists);
     }
 }
