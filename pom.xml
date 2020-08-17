@@ -20,6 +20,7 @@
         <module>regex-demo</module>
         <module>third-party-common</module>
         <module>data-format</module>
+        <module>other-demo</module>
     </modules>
 
     <name>java-dev-toolbox</name>
