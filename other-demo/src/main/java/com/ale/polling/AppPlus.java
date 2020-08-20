@@ -1,4 +1,4 @@
-package com.ale;
+package com.ale.polling;
 
 import lombok.extern.slf4j.Slf4j;
 

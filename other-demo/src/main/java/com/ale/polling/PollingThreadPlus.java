@@ -1,4 +1,4 @@
-package com.ale;
+package com.ale.polling;
 
 import java.util.Queue;
 import java.util.concurrent.LinkedTransferQueue;

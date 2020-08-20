@@ -1,4 +1,4 @@
-package com.ale;
+package com.ale.polling;
 
 public class App {
     public static void main(String[] args) {
