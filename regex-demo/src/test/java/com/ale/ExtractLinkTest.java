@@ -49,7 +49,6 @@ class ExtractLinkTest {
         String s = Splitter.on("/").omitEmptyStrings().splitToList(text).get(1);
         System.out.println(s);
 
-
     }
 
 

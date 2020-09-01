@@ -13,8 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -47,7 +50,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     @Test
      void testGroupingByOneCondition() {
         Map<String, List<Grouping>> filter =
-                groupings.stream().collect(Collectors.groupingBy(Grouping::getType));
+                groupings.stream().collect(groupingBy(Grouping::getType));
         log.info(String.valueOf(filter));
         assertEquals(2, filter.size());
     }
@@ -56,7 +59,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     @Test
     void testGroupingByOneConditionAndDeal() {
         Map<String, List<String>> filter =
-                groupings.stream().collect(Collectors.groupingBy(Grouping::getType, Collectors.mapping(Grouping::getName, Collectors.toList())));
+                groupings.stream().collect(groupingBy(Grouping::getType, Collectors.mapping(Grouping::getName, toList())));
         log.info(String.valueOf(filter));
         assertEquals(2, filter.size());
     }
@@ -66,8 +69,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     @Test
      void testGroupingByMultiCondition() {
         Map<String, List<Grouping>> filter =
-                groupings.stream().collect(Collectors.groupingBy(this::getKey));
+                groupings.stream().collect(groupingBy(this::getKey));
         log.info(String.valueOf(filter));
+        assertEquals(9, filter.size());
+    }
+
+    @DisplayName("GroupingByModifyingReturnMapType")
+    @Test
+    void testGroupingByModifyingReturnMapType() {
+        Map<String, List<Grouping>> filter =
+                groupings.stream().collect(groupingBy(this::getKey, ConcurrentHashMap::new, toList()));
+        log.info(String.valueOf(filter));
+        assertEquals(filter.getClass(), ConcurrentHashMap.class);
         assertEquals(9, filter.size());
     }
 
