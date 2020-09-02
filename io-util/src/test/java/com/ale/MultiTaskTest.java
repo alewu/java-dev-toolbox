@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
@@ -93,6 +90,17 @@ class MultiTaskTest {
                                                                                                      v -> v.getValue()
                                                                                                            .join()));
 
+        Collection<CompletableFuture<String>> values = nameToFuture.values();
+        CompletableFuture<Void> allFutures =
+                CompletableFuture.allOf(values.toArray(new CompletableFuture[values.size()]));
+        CompletableFuture<List<String>> allMsgResultFuture =
+                allFutures.thenApply(v -> values.stream().map(CompletableFuture::join)
+                                                 .collect(Collectors.toList()));
+        List<String> msgResult = allMsgResultFuture.join();
+
+        CompletableFuture.allOf(values.toArray(new CompletableFuture[values.size()]))
+                         .thenApply(v -> values.stream().map(CompletableFuture::join).collect(Collectors.toList()))
+                         .join();
 
         log.info("takes time total {} s", Instant.now().getEpochSecond() - start);
         System.out.println(nameToResult);

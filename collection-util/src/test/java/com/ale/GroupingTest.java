@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,11 +27,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @date 2020/5/16
  */
 @Slf4j
- class GroupingTest {
+class GroupingTest {
     private static final List<Grouping> groupings = new ArrayList<>();
 
     @BeforeEach
-     void init() {
+    void init() {
         //设置 语言 ，地区
         Locale local = new Locale("zh", "CN");
         //创建对象
@@ -46,11 +46,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         }
     }
 
-    @DisplayName("GroupingByOneCondition")
+    @DisplayName("GroupingByOneColumn")
     @Test
-     void testGroupingByOneCondition() {
-        Map<String, List<Grouping>> filter =
-                groupings.stream().collect(groupingBy(Grouping::getType));
+    void testGroupingByOneColumn() {
+        Map<String, List<Grouping>> filter = groupings.stream().collect(groupingBy(Grouping::getType));
         log.info(String.valueOf(filter));
         assertEquals(2, filter.size());
     }
@@ -59,17 +58,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     @Test
     void testGroupingByOneConditionAndDeal() {
         Map<String, List<String>> filter =
-                groupings.stream().collect(groupingBy(Grouping::getType, Collectors.mapping(Grouping::getName, toList())));
+                groupings.stream().collect(groupingBy(Grouping::getType, mapping(Grouping::getName, toList())));
         log.info(String.valueOf(filter));
         assertEquals(2, filter.size());
     }
 
 
-    @DisplayName("GroupingByMultiCondition")
+    @DisplayName("GroupingByMultiFields")
     @Test
-     void testGroupingByMultiCondition() {
-        Map<String, List<Grouping>> filter =
-                groupings.stream().collect(groupingBy(this::getKey));
+    void testGroupingByMultiFields() {
+        Map<String, List<Grouping>> filter = groupings.stream().collect(groupingBy(this::getKey));
         log.info(String.valueOf(filter));
         assertEquals(9, filter.size());
     }
@@ -77,8 +75,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     @DisplayName("GroupingByModifyingReturnMapType")
     @Test
     void testGroupingByModifyingReturnMapType() {
-        Map<String, List<Grouping>> filter =
-                groupings.stream().collect(groupingBy(this::getKey, ConcurrentHashMap::new, toList()));
+        Map<String, List<Grouping>> filter = groupings.stream().collect(groupingBy(this::getKey,
+                                                                                   ConcurrentHashMap::new, toList()));
         log.info(String.valueOf(filter));
         assertEquals(filter.getClass(), ConcurrentHashMap.class);
         assertEquals(9, filter.size());
