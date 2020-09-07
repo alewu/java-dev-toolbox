@@ -1,6 +1,7 @@
 package com.ale;
 
 import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import org.junit.jupiter.api.Test;
 
@@ -79,5 +80,54 @@ import java.util.Date;
 
         System.out.println("相差【 "+days+"天："+hours+" 小时："+minutes+" 分钟："+millis+" 毫秒："+nanos+" 纳秒】");
     }
+
+    @Test
+    void testGetHour(){
+        int hour = LocalDateTime.now().getHour();
+        System.out.println(hour);
+    }
+
+    @Test
+    void testDateParse(){
+        Date parse = DateUtil.parse("22:45:00");
+        //2020-09-05 22:45:00
+        System.out.println(parse);
+    }
+
+    @Test
+    void testDateBetween(){
+        Date parse = DateUtil.parse("12:45");
+        Date date = new Date();
+        long betweenDay = DateUtil.between(parse, date, DateUnit.MINUTE);
+        System.out.println(betweenDay);
+    }
+
+    @Test
+    void test11(){
+        LocalDateTime of = LocalDateTime.of(2020, 9, 7, 15, 25);
+
+        Date parse = DateUtil.parse("12:45");
+        Instant instant = parse.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDateTime localDateTime = instant.atZone(zoneId).toLocalDateTime();
+        int hour = localDateTime.getHour();
+        int minute = localDateTime.getMinute();
+        System.out.println("hour" + hour +  "minute" + minute);
+
+        LocalDateTime to = of.plusWeeks(1);
+        LocalDateTime today_start = LocalDateTime.of(to.toLocalDate(), LocalTime.MIN).plusHours(hour).plusMinutes(minute);
+        System.out.println(today_start);
+
+        LocalDateTime now = LocalDateTime.now();
+
+
+
+
+    }
+
+     @Test
+     void testNow(){
+         System.out.println(System.currentTimeMillis());
+     }
 }
 
