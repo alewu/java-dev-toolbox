@@ -12,13 +12,14 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 
-public class FastJsonTest {
+class FastJsonTest {
 
     @Test
-    public void testJsonStrToJavaBean()  {
+    void testJsonStrToJavaBean() {
         // 注意如果jsonStr中没有的javaBean中的字段则为空
         String feeJson = "[{\"renterId\":\"445456421234123\",\"price\":6.00,\"initNum\":5.00,\"floorNum\":16.00}," +
-                "{\"renterId\":\"432514246214311423\",\"feeType\":\"电费\",\"price\":1.30,\"initNum\":4.00,\"floorNum\":45.00}]";
+                "{\"renterId\":\"432514246214311423\",\"feeType\":\"电费\",\"price\":1.30,\"initNum\":4.00," +
+                "\"floorNum\":45.00}]";
         List<Fee> fees = JSON.parseArray(feeJson, Fee.class);
         for (Fee f : fees) {
             System.out.println(f.toString());
@@ -31,12 +32,14 @@ public class FastJsonTest {
             System.out.println(aLong);
         }
     }
+
     @Test
-    public void testComplexJsonStr(){
+    void testComplexJsonStr() {
         // fastJson解析复杂的json字符串
         String jsonStr = "{\"name\":\"BeJson\",\"url\":\"http://www.bejson.com\",\"page\":88,\"isNonProfit\":true," +
                 "\"address\":{\"street\":\"科技园路.\",\"city\":\"江苏苏州\",\"country\":\"中国\"}," +
-                "\"links\":[{\"name\":\"Google\",\"url\":\"http://www.google.com\"},{\"name\":\"Baidu\",\"url\":\"http://www.baidu.com\"},{\"name\":\"SoSo\",\"url\":\"http://www.SoSo.com\"}]}";
+                "\"links\":[{\"name\":\"Google\",\"url\":\"http://www.google.com\"},{\"name\":\"Baidu\"," +
+                "\"url\":\"http://www.baidu.com\"},{\"name\":\"SoSo\",\"url\":\"http://www.SoSo.com\"}]}";
         // 1、解析为json对象
         JSONObject object = JSON.parseObject(jsonStr);
         // 2、根据key来获取目标对象
@@ -51,7 +54,7 @@ public class FastJsonTest {
     }
 
     @Test
-    public void test111() {
+    void test111() {
         String news = "{\"articles\":[{\"description\":\"啊手动阀\",\"title\":\"安抚a\",\"url\":\"http://sp.upuptec" +
                 ".cn/h5/index.html?linkId=1185\"}]}";
         String s = ReUtil.replaceAll(news, "linkId=\\d+", "$0&uid=12");
@@ -59,7 +62,7 @@ public class FastJsonTest {
     }
 
     @Test
-    public void testJsonToMap() {
+    void testJsonToMap() {
         String a = "{\n" +
                 "    \"text\": {\n" +
                 "        \"content\": \"啊啊<a href='http://sp.upuptec.cn/h5/index.html?linkId=1185'>请求</a>\"\n" +
@@ -84,7 +87,7 @@ public class FastJsonTest {
     }
 
     @Test
-    public void testJsonToMap1() {
+    void testJsonToMap1() {
         String json = "{\n" +
                 "    \"text\": {\n" +
                 "        \"content\": \"啊啊<a href='http://sp.upuptec.cn/h5/index.html?linkId=1185'>请求</a>\"\n" +
@@ -108,7 +111,7 @@ public class FastJsonTest {
     }
 
     @Test
-    public void testMapToJsonObject() {
+    void testMapToJsonObject() {
         String json = "{\n" +
                 "    \"text\": {\n" +
                 "        \"content\": \"啊啊<a href='http://sp.upuptec.cn/h5/index.html?linkId=1185'>请求</a>\"\n" +

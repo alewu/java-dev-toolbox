@@ -1,5 +1,6 @@
 package com.ale;
 
+
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
