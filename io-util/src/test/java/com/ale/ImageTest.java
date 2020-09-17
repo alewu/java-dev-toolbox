@@ -16,17 +16,17 @@ import java.time.Instant;
  * @author alewu
  * @date 2020/6/10
  */
-public class ImageTest {
+class ImageTest {
     public static long start;
     public static long end;
 
     @BeforeEach
-    public void start() {
+    void start() {
         start = System.currentTimeMillis();
     }
 
     @AfterEach
-    public void end() {
+    void end() {
         end = System.currentTimeMillis();
         System.out.println("执行时间： " + (end - start));
     }
@@ -36,11 +36,10 @@ public class ImageTest {
      * 缩放图片：按照比例缩放
      */
     @Test
-    public void testScale() {
+    void testScale() {
         File srcImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\Saved Pictures\\9-1.jpg");
         File destImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\Saved Pictures\\9-1-result.jpg");
-        ImgUtil.scale( srcImageFile, destImageFile,
-                0.5f//缩放比例
+        ImgUtil.scale(srcImageFile, destImageFile, 0.5f//缩放比例
         );
 
     }
@@ -49,11 +48,12 @@ public class ImageTest {
      * 添加图片水印：x坐标修正值。 默认在中间
      */
     @Test
-    public void testPressImage() {
+    void testPressImage() {
         // 原图
         File srcImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\055b32590766d1fbee35f0660fc3c8c.jpg");
         // 水印图片
-        BufferedImage pressImg = ImgUtil.read(FileUtil.file("C:\\Users\\win10\\Pictures\\5ffed353bd253911f1f1a38939d2668.png"));
+        BufferedImage pressImg = ImgUtil.read(FileUtil.file("C:\\Users\\win10\\Pictures" +
+                                                                    "\\5ffed353bd253911f1f1a38939d2668.png"));
         // 输出
         File destImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\1test.jpg");
         // 透明度
@@ -69,7 +69,7 @@ public class ImageTest {
      * 添加图片水印：x坐标修正值。 默认在左上角
      */
     @Test
-    public void testPressImageCoo() {
+    void testPressImageCoo() {
         // 原图
         File srcImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\110.jpg");
         // 水印图片
@@ -84,14 +84,14 @@ public class ImageTest {
         float alpha = 1.0f;
         // 设置坐标在左上角
         Img srcImg = Img.from(srcImageFile).setPositionBaseCentre(false);
-        Image img = srcImg.pressImage(ImgUtil.read(pressImg),200, 200, alpha).getImg();
+        Image img = srcImg.pressImage(ImgUtil.read(pressImg), 200, 200, alpha).getImg();
         ImgUtil.write(img, FileUtil.file(destImageFile));
-        Image img1 = srcImg.pressImage(ImgUtil.read(pressImg1),200, 200, alpha).getImg();
+        Image img1 = srcImg.pressImage(ImgUtil.read(pressImg1), 200, 200, alpha).getImg();
         ImgUtil.write(img1, FileUtil.file(destImageFile1));
     }
 
     @Test
-    public void testPressImage1() {
+    void testPressImage1() {
         // 原图
         File srcImageFile = FileUtil.file("C:\\Users\\win10\\Pictures\\110.jpg");
         // 水印图片
@@ -108,10 +108,10 @@ public class ImageTest {
         long start = Instant.now().toEpochMilli();
         Img srcImg = Img.from(srcImageFile).setPositionBaseCentre(false);
         long end = Instant.now().toEpochMilli();
-        System.out.println(end- start);
-        Image img = srcImg.pressImage(ImgUtil.read(pressImg),200, 200, alpha).getImg();
+        System.out.println(end - start);
+        Image img = srcImg.pressImage(ImgUtil.read(pressImg), 200, 200, alpha).getImg();
         ImgUtil.write(img, FileUtil.file(destImageFile));
-        Image img1 = srcImg.pressImage(ImgUtil.read(pressImg1),200, 200, alpha).getImg();
+        Image img1 = srcImg.pressImage(ImgUtil.read(pressImg1), 200, 200, alpha).getImg();
         ImgUtil.write(img1, FileUtil.file(destImageFile1));
     }
 }

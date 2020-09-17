@@ -1,6 +1,5 @@
-package com.ale;
+package com.ale.date;
 
-import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import org.junit.jupiter.api.Test;
@@ -10,27 +9,13 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
  class DateTest {
-    @Test
-     void testTimestamps(){
-        long newScore = System.currentTimeMillis() + 5400 * 1000;
-        System.out.println(Instant.ofEpochMilli(newScore).atZone(ZoneId.of("Asia/Shanghai")));
-        System.out.println(DateUtil.date(newScore));
-    }
+
 
     @Test
      void testFormater(){
         System.out.println(DateUtil.format(DateUtil.date(),"yyyyMMddHHmm"));
 
         System.out.println(LocalDate.now());
-    }
-
-    @Test
-     void test(){
-        System.out.println(DateUtil.date(1592768108711L));
-        final long timeStamp = DateUtil.offset(DateUtil.date(), DateField.SECOND, 2128).getTime();
-        System.out.println(DateUtil.date(timeStamp));
-        System.out.println(DateUtil.date(1592895414719L));
-        System.out.println(Instant.now().toEpochMilli());
     }
 
     @Test
@@ -58,6 +43,21 @@ import java.util.Date;
         System.out.println(today_start);
         System.out.println(today_end);
     }
+
+     @Test
+     void testBeginOfDateSomeTime(){
+         LocalDateTime today_start = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);//当天零点
+         LocalDateTime localDateTime = today_start.plusHours(6);
+         System.out.println(localDateTime);
+         System.out.println(today_start);
+         System.out.println(LocalDateTime.of(LocalDate.now(), LocalTime.MIN).plusHours(15).plusMinutes(30));
+     }
+
+     @Test
+     void testIsLeapYear(){
+         LocalDate today = LocalDate.now();
+         System.out.println(today.isLeapYear());
+     }
 
     @Test
      void testOffsetMinute(){

@@ -5,6 +5,7 @@ import com.ale.data.bean.User;
 import com.google.common.collect.*;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,6 +76,57 @@ import java.util.Map;
         System.out.println(map3.equals(map4));
 
     }
+
+
+    @Test
+    void testMapSet(){
+       Map<String, Integer> m1 = new HashMap<>();
+       m1.put("a", 1);
+       m1.put("b", 2);
+       m1.put("c", 2);
+       Map<String, Integer> m2 = new HashMap<>();
+       m2.put("a", 2);
+       m2.put("b", 1);
+       m2.put("c", 2);
+       m2.put("d", 3);
+       MapDifference<String, Integer> mapDifference = Maps.difference(m1, m2);
+       System.out.println("==================测试Maps-difference()方法===================" + mapDifference);
+
+       Map<String, MapDifference.ValueDifference<Integer>> differenceMap = mapDifference.entriesDiffering();
+       for (Map.Entry<String, MapDifference.ValueDifference<Integer>> entry :
+               differenceMap.entrySet()) {
+          MapDifference.ValueDifference<Integer> value = entry.getValue();
+          int i = value.leftValue() + value.rightValue();
+       }
+
+
+       System.out.println("==================测试diff - entriesInCommon()方法===================" + mapDifference.entriesInCommon());
+       System.out.println("==================测试diff - entriesOnlyOnLeft()方法===================" + mapDifference.entriesOnlyOnLeft());
+       System.out.println("==================测试diff - entriesOnlyOnRight()方法===================" + mapDifference.entriesOnlyOnRight());
+       System.out.println("==================测试diff - entriesDiffering()方法===================" + mapDifference.entriesDiffering());
+       System.out.println("==================测试diff - areEqual()方法===================" + mapDifference.areEqual());
+    }
+
+   @Test
+   void test(){
+      Map<String, Object> m1 = new HashMap<>();
+      m1.put("a", ImmutableList.of(1));
+      m1.put("b", ImmutableList.of(new BigDecimal("1234576"), 3));
+      m1.put("c", ImmutableList.of(2,3));
+      Map<String, Object> m2 = new HashMap<>();
+      m2.put("a", 1);
+      m2.put("b", ImmutableList.of(new BigDecimal("1234576"), 3));
+      m2.put("c", 2);
+      m2.put("d", 3);
+      MapDifference<String, Object> mapDifference = Maps.difference(m1, m2);
+      System.out.println("==================测试Maps-difference()方法===================" + mapDifference);
+
+      System.out.println("==================测试diff - entriesInCommon()方法===================" + mapDifference.entriesInCommon());
+      System.out.println("==================测试diff - entriesOnlyOnLeft()方法===================" + mapDifference.entriesOnlyOnLeft());
+      System.out.println("==================测试diff - entriesOnlyOnRight()方法===================" + mapDifference.entriesOnlyOnRight());
+      System.out.println("==================测试diff - entriesDiffering()方法===================" + mapDifference.entriesDiffering());
+      System.out.println("==================测试diff - areEqual()方法===================" + mapDifference.areEqual());
+   }
 
 
 }

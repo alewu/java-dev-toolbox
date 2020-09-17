@@ -10,7 +10,7 @@ class ImgUtilTest {
 
     @Test
     void isRgbOrCmyk() throws IOException {
-        boolean rgbOrCmyk = ImgUtil.isRgbOrCmyk("C:\\Users\\win10\\Pictures\\微信图片_20200805171644.jpg");
+        boolean rgbOrCmyk = ImgUtil.isRgbOrCmyk("C:\\Users\\win10\\Pictures\\微信图片_20200908142526.jpg");
         assertFalse(rgbOrCmyk);
     }
 }
