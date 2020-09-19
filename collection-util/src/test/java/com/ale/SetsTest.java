@@ -11,8 +11,8 @@ import java.util.Map;
  * @date 2020/9/17
  */
 class SetsTest {
-    Map<String, Integer> m1 = ImmutableMap.of("1", 1, "a", 2);
-    Map<String, Integer> m2 = ImmutableMap.of("1", 1, "b", 2);
+    Map<String, Integer> m1 = ImmutableMap.of("a", 1, "b", 2, "d", 3);
+    Map<String, Integer> m2 = ImmutableMap.of("a", 1, "b", 4, "e", 5);
     Map<String, Integer> m3 = ImmutableMap.of();
 
 
@@ -30,5 +30,13 @@ class SetsTest {
     void testSymmetricDifference(){
         Sets.SetView<String> symmetricDifference = Sets.symmetricDifference(m1.keySet(), m2.keySet());
         System.out.println("symmetricDifference: " + symmetricDifference);
+    }
+
+    @Test
+    void testUnion(){
+        Sets.SetView<String> difference2 = Sets.difference(m2.keySet(), m1.keySet());
+        Sets.SetView<String> intersection = Sets.intersection(m1.keySet(), m2.keySet());
+        Sets.SetView<String> union = Sets.union(m2.keySet(), intersection);
+        System.out.println("union" + union);
     }
 }
