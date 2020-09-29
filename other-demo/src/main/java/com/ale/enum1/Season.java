@@ -26,4 +26,14 @@ public enum Season {
         }
         return null;
     }
+
+    public static String getName(String name) {
+        Season[] values = values();
+        for (Season season : values) {
+            if (Objects.equals(season.getValue(), name)) {
+                return season.getName();
+            }
+        }
+        return null;
+    }
 }

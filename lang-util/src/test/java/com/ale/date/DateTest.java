@@ -59,10 +59,6 @@ import java.util.Date;
          System.out.println(today.isLeapYear());
      }
 
-    @Test
-     void testOffsetMinute(){
-        System.out.println(DateUtil.offsetMinute(new Date(), 5));
-    }
     
     @Test
     void testBetween(){
