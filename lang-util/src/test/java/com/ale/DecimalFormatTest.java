@@ -2,7 +2,9 @@ package com.ale;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 class DecimalFormatTest {
     /**
@@ -56,5 +58,16 @@ class DecimalFormatTest {
         System.out.println(new DecimalFormat(".0600").format(pi));//12.3406
         System.out.println(new DecimalFormat(".6000").format(pi));//12.3406
         System.out.println(new DecimalFormat(".600000##").format(pi));//12.340006
+
+        double i = 1.0 / 30000.0;
+
+        System.out.println(df.format(i));
+
+        NumberFormat nt = NumberFormat.getPercentInstance();
+        nt.setMinimumFractionDigits(2);
+        System.out.println( nt.format(i));
+
+        int i1 = new BigDecimal("27011.1000").intValue();
+        System.out.println(i1);
     }
 }
