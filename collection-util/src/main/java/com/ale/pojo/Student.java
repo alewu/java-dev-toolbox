@@ -13,16 +13,24 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Student implements Comparable<Student> {
     private Integer id;
-    //名称
+    /**
+     * 名称
+     */
     private String name;
 
-    //年龄
+    /**
+     * 年龄
+     */
     private Integer age;
 
-    //身高
+    /**
+     * 身高
+     */
     private Double height;
 
-    //出生日期
+    /**
+     * 出生日期
+     */
     private LocalDate birthday;
 
     @Override
