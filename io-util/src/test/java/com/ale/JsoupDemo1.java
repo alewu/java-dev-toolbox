@@ -7,12 +7,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -20,80 +23,69 @@ import java.util.stream.Collectors;
  * @date 2020/10/17
  */
 public class JsoupDemo1 {
-    public static void main(String[] args) throws IOException {
-        String dir = "D:\\tmp\\软件工程之美";
+    public static void main(String[] args) throws IOException, InterruptedException {
+        String dir = "E:\\tmp\\极客时间\\101-后端技术面试38讲";
+        String targetDir = "E:\\tmp\\101-后端技术面试38讲";
+        File file = new File(targetDir);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
         List<Path> files = FileUtils.getFiles(dir);
-        List<Path> html1 =
+        List<Path> htmlFiles =
                 files.stream().filter(path -> path.toFile().getName().endsWith("html")).collect(Collectors.toList());
-        Path path1 = html1.get(0);
+        Path path1 = htmlFiles.get(0);
         List<Path> paths = Collections.singletonList(path1);
-        for (Path path : html1) {
-            System.out.println(path.toFile().getName());
-            Document document = Jsoup.parse(path.toFile(), StandardCharsets.UTF_8.name());
-
-            Elements meta = document.getElementsByTag("meta");
-            for (Element element : meta) {
-                String name = element.attr("name");
-                if (name.equals("description")) {
-                    element.remove();
+        for (Path path : paths) {
+            CompletableFuture.runAsync(() -> {
+                try {
+                    dealOne(targetDir, path);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                if (name.equals("Keywords")) {
-                    element.remove();
-                }
-            }
+            });
+        }
+        TimeUnit.SECONDS.sleep(30);
 
-            document.getElementsByTag("svg").remove();
+    }
 
-            document.getElementsByTag("script").remove();
+    private static void dealOne(String targetDir, Path path) throws IOException {
+        System.out.println(path.toFile().getName());
+        Document document = Jsoup.parse(path.toFile(), StandardCharsets.UTF_8.name());
 
-
-            Elements elementsByTag1 = document.getElementsByTag("p");
-            for (Element element : elementsByTag1) {
-                if (element.text().equals("欢迎你留言和我讨论。！")) {
-                    element.remove();
-                }
-            }
-
-            Element element = document.getElementById("gkui-modal-controller");
-            if (element != null) {
+        Elements meta = document.getElementsByTag("meta");
+        for (Element element : meta) {
+            String name = element.attr("name");
+            if (name.equals("description")) {
                 element.remove();
             }
-
-
-            List<String> divClassList = ImmutableList.of("_1qHJ5OLn_0","_2sRsF5RP_0");
-            removeByClassName(document, divClassList);
-
-            removeImage(document);
-
-
-            String html = document.html();
-            System.out.println(html);
-            Files.write(html.getBytes("UTF-8"), Paths.get(dir, path.toFile().getName()).toFile());
-        }
-
-    }
-
-    private static void removeByClassName(Document document, List<String> divClassList) {
-        for (String div : divClassList) {
-            Elements elementsByClass = document.getElementsByClass(div);
-            elementsByClass.remove();
-        }
-    }
-
-    private static void removeImage(Document document) {
-        Elements img = document.getElementsByTag("img");
-        if (img.size() == 0) {
-            return;
-        }
-        Element element = img.get(0);
-        element.remove();
-        for (Element element1 : img) {
-            if (element1.attr("src").equals("https://static001.geekbang" +
-                                                    ".org/resource/image/b5/fb/b5bc14cb81d3630919fee94a512cc3fb.jpg")) {
-                element1.remove();
+            if (name.equals("Keywords")) {
+                element.remove();
             }
-
         }
+        JsoupUtils.replaceText(document, "加微信", "王宝令");
+
+        List<String> tags = ImmutableList.of("script");
+        JsoupUtils.removeByTag(document, tags);
+
+        JsoupUtils.removeByText(document, "欢迎在留言区与我分享你的想法，也欢迎你在留言区记录你的思考过程。感谢阅读，如果你觉得这篇文章对你有帮助的话，也欢迎把它分享给更多的朋友。");
+
+        List<String> ids = ImmutableList.of("qb_collection_img_mask", "gkui-modal-controller");
+        JsoupUtils.removeById(document, ids);
+
+        // 按css删除
+        List<String> divClassList = ImmutableList.of("Wz6esVdU_0", "_1Bg5E78Y_0 _25ls2Q2l_0", "_3FoXPaWx_0");
+        JsoupUtils.removeByClassName(document, divClassList);
+
+        String imageUrl = "https://static001.geekbang.org/resource/image/cf/aa/cf393cd748a4f0e6451807c4b61843aa" +
+                ".jpg";
+        String attrKey = "data-savepage-src";
+        JsoupUtils.removeImage(document, attrKey, imageUrl);
+
+
+        String html = document.html();
+        System.out.println(html);
+        Files.write(html.getBytes("UTF-8"), Paths.get(targetDir, path.toFile().getName()).toFile());
     }
 
 
