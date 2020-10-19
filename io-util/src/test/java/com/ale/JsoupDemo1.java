@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
  */
 public class JsoupDemo1 {
     public static void main(String[] args) throws IOException {
-        String dir = "D:\\tmp\\软件工程之美\\";
-        List<Path> files = FileUtils.getFiles("D:\\tmp\\60 软件工程之美-20201017T080810Z-001\\60 软件工程之美");
+        String dir = "D:\\tmp\\软件工程之美";
+        List<Path> files = FileUtils.getFiles(dir);
         List<Path> html1 =
                 files.stream().filter(path -> path.toFile().getName().endsWith("html")).collect(Collectors.toList());
         Path path1 = html1.get(0);
@@ -42,24 +42,26 @@ public class JsoupDemo1 {
                 }
             }
 
-            Elements elementsByTag = document.getElementsByTag("span");
-            for (Element element : elementsByTag) {
-                if (element.text().contains("加微信")){
-                    element.text("宝玉");
-                }
-            }
+            document.getElementsByTag("svg").remove();
+
+            document.getElementsByTag("script").remove();
+
 
             Elements elementsByTag1 = document.getElementsByTag("p");
             for (Element element : elementsByTag1) {
-                if (element.text().equals("感谢阅读，如果你觉得这篇文章对你有一些启发，也欢迎把它分享给你的朋友。")){
+                if (element.text().equals("欢迎你留言和我讨论。！")) {
                     element.remove();
                 }
             }
 
+            Element element = document.getElementById("gkui-modal-controller");
+            if (element != null) {
+                element.remove();
+            }
 
 
-            List<String> divClassList = ImmutableList.of("_352wsGxH_0","Wz6esVdU_0", "_1-ZfmNK8_0", "_1Bg5E78Y_0 _25ls2Q2l_0", "_3FoXPaWx_0", "_1qhD3bdE_0 _2QmGFWqF_0","_2DmyW7ex_0 _2QmGFWqF_0", "_22WJb59B_0");
-            removeByClass(document, divClassList);
+            List<String> divClassList = ImmutableList.of("_1qHJ5OLn_0","_2sRsF5RP_0");
+            removeByClassName(document, divClassList);
 
             removeImage(document);
 
@@ -71,7 +73,7 @@ public class JsoupDemo1 {
 
     }
 
-    private static void removeByClass(Document document, List<String> divClassList) {
+    private static void removeByClassName(Document document, List<String> divClassList) {
         for (String div : divClassList) {
             Elements elementsByClass = document.getElementsByClass(div);
             elementsByClass.remove();
@@ -80,16 +82,17 @@ public class JsoupDemo1 {
 
     private static void removeImage(Document document) {
         Elements img = document.getElementsByTag("img");
+        if (img.size() == 0) {
+            return;
+        }
         Element element = img.get(0);
         element.remove();
         for (Element element1 : img) {
-            if (element1.attr("data-savepage-src").equals("https://static001.geekbang.org/resource/image/31/af/315c3c753591fbaf480f39cdc9e0f3af.jpg")) {
+            if (element1.attr("src").equals("https://static001.geekbang" +
+                                                    ".org/resource/image/b5/fb/b5bc14cb81d3630919fee94a512cc3fb.jpg")) {
                 element1.remove();
             }
 
-            if (element1.attr("data-savepage-src").equals("https://static001.geekbang.org/resource/image/30/ed/3035c596dc0cde8f0da6d92355757eed.jpg")) {
-                element1.remove();
-            }
         }
     }
 
