@@ -11,14 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.seimicrawler.xpath.JXDocument;
 import org.seimicrawler.xpath.JXNode;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author alewu
@@ -28,15 +26,10 @@ public class JsoupXpathDemo {
     public static void main(String[] args) throws IOException {
         String dir = "E:\\tmp\\xxx\\101-xxx";
         String targetDir = "E:\\tmp\\101-xxx";
-        File file = new File(targetDir);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
+        FileHelper.mkdir(targetDir);
 
-        List<Path> files = FileUtils.getFiles(dir);
-        List<Path> html1 =
-                files.stream().filter(path -> path.toFile().getName().endsWith("html")).collect(Collectors.toList());
-        List<Path> paths = Collections.singletonList(html1.get(0));
+        List<Path> files = FileHelper.getFiles(dir, "html");
+        List<Path> paths = Collections.singletonList(files.get(0));
         for (Path path : paths) {
             System.out.println(path.toFile().getName());
             Document document = Jsoup.parse(path.toFile(), StandardCharsets.UTF_8.name());
@@ -101,14 +94,11 @@ public class JsoupXpathDemo {
     void test() throws IOException {
         String dir = "E:\\tmp\\极客时间\\101-后端技术面试38讲";
         String targetDir = "E:\\tmp\\101-后端技术面试38讲";
-        File file = new File(targetDir);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        List<Path> files = FileUtils.getFiles(dir);
-        List<Path> html1 =
-                files.stream().filter(path -> path.toFile().getName().endsWith("html")).collect(Collectors.toList());
-        List<Path> paths = Collections.singletonList(html1.get(0));
+        FileHelper.mkdir(targetDir);
+
+        List<Path> files = FileHelper.getFiles(dir, "html");
+
+        List<Path> paths = Collections.singletonList(files.get(0));
         for (Path path : paths) {
             Document document = Jsoup.parse(path.toFile(), StandardCharsets.UTF_8.name());
             String html = document.html();

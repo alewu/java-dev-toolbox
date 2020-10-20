@@ -7,7 +7,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -16,7 +15,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * @author alewu
@@ -26,16 +24,12 @@ public class JsoupDemo {
     public static void main(String[] args) throws IOException, InterruptedException {
         String dir = "E:\\tmp\\xx\\xx";
         String targetDir = "E:\\tmp\\xx";
-        File file = new File(targetDir);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
+        FileHelper.mkdir(targetDir);
 
-        List<Path> files = FileUtils.getFiles(dir);
-        List<Path> htmlFiles =
-                files.stream().filter(path -> path.toFile().getName().endsWith("html")).collect(Collectors.toList());
+        List<Path> htmlFiles = FileHelper.getFiles(dir, "html");
         Path path1 = htmlFiles.get(0);
         List<Path> paths = Collections.singletonList(path1);
+
         for (Path path : paths) {
             CompletableFuture.runAsync(() -> {
                 try {
