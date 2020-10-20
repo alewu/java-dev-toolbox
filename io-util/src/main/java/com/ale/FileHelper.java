@@ -5,12 +5,23 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 /**
   *
   * @author alewu
   * @date 2020/10/17
   */
-public final class FileUtils {
+public final class FileHelper {
+
+    public static void mkdir(String pathName) {
+        Path path = Paths.get(pathName);
+        try {
+            Files.createDirectories(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static List<Path> getFiles(String root) throws IOException {
         Path path = Paths.get(root);
@@ -32,5 +43,10 @@ public final class FileUtils {
             }
         });
         return result;
+    }
+
+    public static List<Path> getFiles(String root, String fileSuffix) throws IOException {
+        List<Path> files = getFiles(root);
+        return files.stream().filter(path -> path.toFile().getName().endsWith(fileSuffix)).collect(Collectors.toList());
     }
 }

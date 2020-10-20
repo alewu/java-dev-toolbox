@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 class FileTest {
     @Test
-    void test() throws IOException, InterruptedException {
+    void testCopy() throws IOException, InterruptedException {
         String path1 = this.getClass().getResource("").getPath();
         String outputFile = "333.jpg";
         String path = "C:\\Users\\win10\\Pictures\\222.jpg";
@@ -32,7 +32,7 @@ class FileTest {
     }
 
     @Test
-    void test1() throws IOException {
+    void testCreateTempDirectory() throws IOException {
         Path dir = Files.createTempDirectory("my-dir");
         Path fileToCreatePath = dir.resolve("test-file.txt");
         System.out.println("File to create path: " + fileToCreatePath);
@@ -50,8 +50,8 @@ class FileTest {
 
     @Test
     void testWalkFileTree() throws IOException {
-        List<Path> paths = FileUtils.getFiles("D:\\tmp\\22 深入拆解 Java 虚拟机-20201017T080609Z-001\\22 深入拆解 Java 虚拟机");
-        String newPath = "D:\\tmp\\深入拆解 Java 虚拟机";
+        List<Path> paths = FileHelper.getFiles("xxx");
+        String newPath = "D:\\tmp\\xx";
         List<Path> collect = paths.stream().skip(1).collect(Collectors.toList());
         for (Path path : collect) {
             System.out.println(path.toFile().getName());
@@ -82,8 +82,6 @@ class FileTest {
 
     @Test
     void testDelete() throws IOException {
-        List<Path> paths = FileUtils.getFiles("D:\\tmp\\59 程序员进阶攻略（61讲）-20201017T053659Z-001\\59 程序员进阶攻略（61讲）");
-        String newPath = "D:\\tmp\\程序员进阶攻略";
 
     }
 }
