@@ -7,7 +7,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.junit.jupiter.api.Test;
 import org.seimicrawler.xpath.JXDocument;
 import org.seimicrawler.xpath.JXNode;
 
@@ -90,32 +89,6 @@ public class JsoupXpathDemo {
 
     }
 
-    @Test
-    void test() throws IOException {
-        String dir = "E:\\tmp\\极客时间\\101-后端技术面试38讲";
-        String targetDir = "E:\\tmp\\101-后端技术面试38讲";
-        FileHelper.mkdir(targetDir);
-
-        List<Path> files = FileHelper.getFiles(dir, "html");
-
-        List<Path> paths = Collections.singletonList(files.get(0));
-        for (Path path : paths) {
-            Document document = Jsoup.parse(path.toFile(), StandardCharsets.UTF_8.name());
-            String html = document.html();
-            JXDocument jxDocument = JXDocument.create(html);
-            JXNode jxNode = jxDocument.selNOne("//*[@id=\"app\"]/div[1]/div/div/div[2]/div[3]");
-
-            Element element = jxNode.asElement();
-
-
-            String html2 = document.html();
-            //            System.out.println(html2);
-            Files.write(html2.getBytes(StandardCharsets.UTF_8.name()),
-                        Paths.get(targetDir, path.toFile().getName()).toFile());
-        }
-
-
-    }
 
 
 }

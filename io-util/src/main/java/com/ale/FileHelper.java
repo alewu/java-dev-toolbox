@@ -16,8 +16,11 @@ public final class FileHelper {
 
     public static void mkdir(String pathName) {
         Path path = Paths.get(pathName);
+        Path parent = path.getParent();
         try {
-            Files.createDirectories(path);
+            if (parent != null) {
+                Files.createDirectories(path);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
