@@ -59,8 +59,8 @@ class JsoupXpathTest {
 
     @Test
     void test() throws IOException, InterruptedException {
-        String dir = "E:\\tmp\\xxx";
-        String targetDir = "E:\\tmp\\xxx";
+        String dir = "E:\\tmp\\极客时间\\专题\\29-朱赟的技术管理课";
+        String targetDir = "E:\\tmp\\29-朱赟的技术管理课";
         FileHelper.mkdir(targetDir);
 
         List<Path> files = FileHelper.getFiles(dir, "html");
