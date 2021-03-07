@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class>
+    <student>
+        <name>张三</name>
+        <sid>111111</sid>
+    </student>
+    <student id="stu1">
+        <name>李四</name>
+        <sid>222222</sid>
+    </student>
+</class>
