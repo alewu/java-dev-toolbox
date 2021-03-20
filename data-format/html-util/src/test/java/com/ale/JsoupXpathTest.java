@@ -1,5 +1,6 @@
 package com.ale;
 
+import com.ale.util.JsoupUtils;
 import com.google.common.io.Files;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -104,7 +105,7 @@ class JsoupXpathTest {
         Element body = document.body();
         body.html(element.html());
 
-        JsoupUtils.removeByTag(document, Collections.singletonList("script"));
+        JsoupUtils.removeByTags(document, Collections.singletonList("script"));
 
         String html2 = document.html();
         //            System.out.println(html2);
