@@ -1,5 +1,6 @@
 package com.ale;
 
+import com.ale.util.JsoupUtils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.Files;
 import org.jsoup.Jsoup;
@@ -61,12 +62,12 @@ public class JsoupDemo {
         JsoupUtils.replaceText(document, "xxx", "xx");
 
         List<String> tags = ImmutableList.of("script");
-        JsoupUtils.removeByTag(document, tags);
+        JsoupUtils.removeByTags(document, tags);
 
         JsoupUtils.removeByText(document, "xxx");
 
         List<String> ids = ImmutableList.of("qb_collection_img_mask", "gkui-modal-controller");
-        JsoupUtils.removeById(document, ids);
+        JsoupUtils.removeByIds(document, ids);
 
         // 按css删除
         List<String> divClassList = ImmutableList.of("Wz6esVdU_0", "_1Bg5E78Y_0 _25ls2Q2l_0", "_3FoXPaWx_0");

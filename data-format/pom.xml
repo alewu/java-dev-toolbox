@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>java-dev-toolbox</artifactId>
-    <groupId>com.ale</groupId>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>java-dev-toolbox</artifactId>
+        <groupId>com.ale</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>data-format</artifactId>
     <version>1.0-SNAPSHOT</version>
-  </parent>
-  <artifactId>data-format</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <name>data-format</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
-  <modules>
-    <module>xml-util</module>
-    <module>yaml-util</module>
-    <module>json-util</module>
-    <module>html-util</module>
-  </modules>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
+    <packaging>pom</packaging>
+    <name>data-format</name>
+    <!-- FIXME change it to the project's website -->
+    <url>http://www.example.com</url>
+    <modules>
+        <module>xml-util</module>
+        <module>yaml-util</module>
+        <module>json-util</module>
+        <module>html-util</module>
+    </modules>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
-  <dependencies>
+    <dependencies>
 
-  </dependencies>
+    </dependencies>
 
 </project>
