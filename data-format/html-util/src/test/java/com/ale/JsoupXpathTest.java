@@ -1,115 +1,46 @@
 package com.ale;
 
-import com.ale.util.JsoupUtils;
-import com.google.common.io.Files;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.seimicrawler.xpath.JXDocument;
 import org.seimicrawler.xpath.JXNode;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CountDownLatch;
+import java.net.URL;
+import java.nio.charset.Charset;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class JsoupXpathTest {
+    private JXDocument underTest;
 
-    @Test
-    void testBatch() throws IOException, InterruptedException {
-        String dir = "D:\\tmp\\xx";
-        File file = new File(dir);
-        String[] list = file.list();
-        for (String s : list) {
-            String targetDir = "D:\\tmp\\yy\\" + s;
-            FileHelper.mkdir(targetDir);
-            System.out.println(s);
-            String src = "D:\\tmp\\xx\\" + s;
+    private JXDocument doubanTest;
+    private JXDocument custom;
+    private ClassLoader loader = getClass().getClassLoader();
 
-            List<Path> files = FileHelper.getFiles(src, "html");
-
-            List<Path> paths = Collections.singletonList(files.get(0));
-            CountDownLatch latch = new CountDownLatch(files.size());
-
-            for (Path path : files) {
-                CompletableFuture.runAsync(() -> {
-                    try {
-                        dealOne(targetDir, path);
-                        long count = latch.getCount();
-                        System.out.println("正在处理：" + count + "--" + path.getFileName());
-                        latch.countDown();
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-            }
-
-            latch.await();
-
-
+    @BeforeAll
+    public void before() throws Exception {
+        String html = "<html><body><script>console.log('aaaaa')</script><div class='test'>some body</div><div " +
+                "class='xiao'>Two</div></body></html>";
+        underTest = JXDocument.create(html);
+        if (doubanTest == null) {
+            URL t = loader.getResource("d_test.html");
+            assert t != null;
+            File dBook = new File(t.toURI());
+            String context = FileUtils.readFileToString(dBook, Charset.forName("utf8"));
+            doubanTest = JXDocument.create(context);
         }
+        custom = JXDocument.create("<li><b>性别：</b>男</li>");
     }
 
+    /**
+     * Method: sel(String xpath)
+     */
     @Test
-    void test() throws IOException, InterruptedException {
-        String dir = "E:\\tmp\\极客时间\\专题\\29-朱赟的技术管理课";
-        String targetDir = "E:\\tmp\\29-朱赟的技术管理课";
-        FileHelper.mkdir(targetDir);
+    void testSel() throws Exception {
+        String xpath = "//script[1]/text()";
+        JXNode res = underTest.selNOne(xpath);
 
-        List<Path> files = FileHelper.getFiles(dir, "html");
-
-        List<Path> paths = Collections.singletonList(files.get(0));
-        CountDownLatch latch = new CountDownLatch(files.size());
-
-        for (Path path : files) {
-            CompletableFuture.runAsync(() -> {
-                try {
-                    dealOne(targetDir, path);
-                    long count = latch.getCount();
-                    System.out.println("正在处理：" + count + "--" + path.getFileName());
-                    latch.countDown();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-
-        latch.await();
-
-
-    }
-
-    private void dealOne(String targetDir, Path path) throws IOException {
-        Document document = Jsoup.parse(path.toFile(), StandardCharsets.UTF_8.name());
-        String html = document.html();
-        JXDocument jxDocument = JXDocument.create(html);
-
-        Elements select = document.select("head");
-        Element head = document.head();
-        head.html(select.html());
-
-        JXNode jxNode = jxDocument.selNOne("//*[@id=\"app\"]/div[1]/div/div/div[2]/div[2]/div[3]");
-        Element element = jxNode.asElement();
-
-
-
-        Element body = document.body();
-        body.html(element.html());
-
-        JsoupUtils.removeByTags(document, Collections.singletonList("script"));
-
-        String html2 = document.html();
-        //            System.out.println(html2);
-        Files.write(html2.getBytes(StandardCharsets.UTF_8.name()),
-                    Paths.get(targetDir, path.toFile().getName()).toFile());
     }
 }

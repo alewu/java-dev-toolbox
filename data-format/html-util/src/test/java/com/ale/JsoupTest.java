@@ -21,10 +21,10 @@ import java.util.concurrent.TimeUnit;
  * @author alewu
  * @date 2020/10/17
  */
-public class JsoupDemo {
+public class JsoupTest {
     public static void main(String[] args) throws IOException, InterruptedException {
-        String dir = "E:\\tmp\\xx\\xx";
-        String targetDir = "E:\\tmp\\xx";
+        String dir = "E:\\tmp\\极客时间\\专题\\119-Java 业务开发常见错误 100 例";
+        String targetDir = "E:\\tmp\\119-Java 业务开发常见错误 100 例";
         FileHelper.mkdir(targetDir);
 
         List<Path> htmlFiles = FileHelper.getFiles(dir, "html");
