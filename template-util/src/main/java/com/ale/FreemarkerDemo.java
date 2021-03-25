@@ -43,7 +43,7 @@ public class FreemarkerDemo {
         root.put("latestProduct", latest);
 
         /* Get the template (uses cache internally) */
-        Template temp = cfg.getTemplate("test.ftl");
+        Template temp = cfg.getTemplate("templates/test.ftl");
 
         /* Merge data-model with template */
         Writer out = new OutputStreamWriter(System.out);
