@@ -1,4 +1,4 @@
-package com.ale;
+package com.ale.regex;
 
 import cn.hutool.core.util.ReUtil;
 import com.google.common.base.Splitter;

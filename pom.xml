@@ -17,7 +17,6 @@
         <module>template-util</module>
         <module>lang-util</module>
         <module>string-demo</module>
-        <module>regex-demo</module>
         <module>third-party-common</module>
         <module>data-format</module>
         <module>other-demo</module>
@@ -32,7 +31,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <!--tool start-->
-        <guava.version>30.0-jre</guava.version>
+        <guava.version>30.1.1-jre</guava.version>
         <hutool.version>5.0.3</hutool.version>
         <jodd.version>5.0.12</jodd.version>
         <commons-lang3.version>3.10</commons-lang3.version>
