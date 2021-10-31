@@ -3,10 +3,13 @@ package com.ale;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ReUtil;
+import com.ale.bean.CareerScoreInfo;
+import com.ale.bean.CreditResponse;
 import com.ale.bean.Fee;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -128,6 +131,18 @@ class FastJsonTest {
         jsonObject.put("text", newContent);
         String s1 = JSON.toJSONString(map);
         System.out.println(s1);
+    }
+
+
+    @Test
+    void testNestJson() {
+        String json = "{\"update_time\":\"2021-10-31 09:41:38\",\"status\":1,\"error\":\"查询成功\"," +
+                "\"data\":{\"score\":\"451\",\"name\":\"张三\",\"address\":\"北京市 " +
+                "朝阳区,\",\"phoneMatched\":true}}";
+        CreditResponse<CareerScoreInfo> creditResponse = JSON.parseObject(json,
+                                                                          new TypeReference<CreditResponse<CareerScoreInfo>>() {
+                                                                          });
+        System.out.println(creditResponse.getData());
     }
 
 }

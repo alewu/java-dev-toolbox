@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.Test;
 
-
 import java.util.Map;
 
 public class GsonTest {
@@ -48,27 +47,35 @@ public class GsonTest {
     @Test
     public void testGsonBuilder(){
         Dept dept = new Dept(1L,"kook");
+
         System.out.println(gson.toJson(dept)); // {"deptId":1,"deptName":"kook"}
 
         Gson gson1 = new GsonBuilder().serializeNulls().create();
         Dept dept1 = new Dept(1L,"kook");
         System.out.println(gson1.toJson(dept1));
 
-        Gson gson2 = new GsonBuilder()
-                //序列化null
-                .serializeNulls()
-                // 设置日期时间格式，另有2个重载方法
-                // 在序列化和反序化时均生效
-                .setDateFormat("yyyy-MM-dd")
-                // 禁此序列化内部类
-                .disableInnerClassSerialization()
-                //生成不可执行的Json（多了 )]}' 这4个字符）
-                .generateNonExecutableJson()
-                //禁止转义html标签
-                .disableHtmlEscaping()
-                //格式化输出
+        Gson gson2 = new GsonBuilder().setPrettyPrinting()
+                                      //序列化null
+                                      .serializeNulls()
+                                      // 设置日期时间格式，另有2个重载方法
+                                      // 在序列化和反序化时均生效
+                                      .setDateFormat("yyyy-MM-dd")
+                                      // 禁此序列化内部类
+                                      .disableInnerClassSerialization()
+                                      //生成不可执行的Json（多了 )]}' 这4个字符）
+                                      .generateNonExecutableJson()
+                                      //禁止转义html标签
+                                      .disableHtmlEscaping()
+                                      //格式化输出
+                                      .create();
 
-                .create();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setPrettyPrinting();
+
+        Gson gson3 = gsonBuilder.create();
+
+        String s = gson3.toJson(dept1);
+        System.out.println(s);
     }
 
 
