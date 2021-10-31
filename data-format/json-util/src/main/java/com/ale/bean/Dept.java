@@ -1,6 +1,15 @@
 package com.ale.bean;
 
-public class Dept {
-    public Dept(long l, String jack) {
-    }
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.io.Serializable;
+
+@Data
+@AllArgsConstructor
+public class Dept implements Serializable {
+    private long l;
+    private String name;
+
+
 }
