@@ -20,6 +20,7 @@
         <module>third-party-common</module>
         <module>data-format</module>
         <module>other-demo</module>
+        <module>doc-util</module>
     </modules>
 
     <name>java-dev-toolbox</name>
