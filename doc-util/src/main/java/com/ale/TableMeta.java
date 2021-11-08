@@ -9,6 +9,8 @@ public class TableMeta {
 
     private String filedType;
 
+    private String filedLength;
+
     private String isMustInput;
 
     private String filedComment;
