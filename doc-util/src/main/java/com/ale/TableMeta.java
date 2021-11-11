@@ -14,4 +14,8 @@ public class TableMeta {
     private String isMustInput;
 
     private String filedComment;
+
+    private String tableName;
+
+    private String tableComment;
 }

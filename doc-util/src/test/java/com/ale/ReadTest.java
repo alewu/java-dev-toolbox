@@ -100,9 +100,10 @@ public class ReadTest {
         String filedLength = tableMeta.getFiledLength();
         String boxedFiledLength = StringUtils.isNotBlank(filedLength) ? "(" + filedLength + ")" : "";
         String filedComment = tableMeta.getFiledComment();
+        String tableName = tableMeta.getTableName();
 
         return MessageFormat.format("alter table {0} add {1} {2}{3} {4} comment ''{5}'';",
-                                    "vaylien_user_base_info", lowerUnderscore,
+                                    tableName, lowerUnderscore,
                                     javaTypeToSqlType.getOrDefault(filedType, "varchar"), boxedFiledLength, isNull,
                                     filedComment);
     }
