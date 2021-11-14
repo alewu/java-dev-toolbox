@@ -6,6 +6,7 @@ import cn.hutool.core.util.ReUtil;
 import com.ale.bean.CareerScoreInfo;
 import com.ale.bean.CreditResponse;
 import com.ale.bean.Fee;
+import com.ale.bean.UserDeviceInfo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -34,6 +35,18 @@ class FastJsonTest {
         for (Long aLong : longList) {
             System.out.println(aLong);
         }
+    }
+
+    @Test
+    void testJavaBeanToJsonStr() {
+
+        UserDeviceInfo userDeviceInfo = new UserDeviceInfo();
+        userDeviceInfo.setAvailableStorage("2.3G");
+        userDeviceInfo.setIsRoot("1");
+        userDeviceInfo.setIsWifi("0");
+
+        String s = JSONObject.toJSONString(userDeviceInfo);
+        System.out.println(s);
     }
 
     @Test
