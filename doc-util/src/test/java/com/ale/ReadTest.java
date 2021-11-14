@@ -95,7 +95,7 @@ public class ReadTest {
         String filedName = tableMeta.getFiledName();
         String lowerUnderscore = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, filedName);
         String isMustInput = tableMeta.getIsMustInput();
-        String isNull = "Y".equals(isMustInput) ? "null" : "not null";
+        String isNull = "Y".equals(isMustInput) ? "not null" : "null";
         String filedType = tableMeta.getFiledType().toLowerCase(Locale.ROOT).trim();
         String filedLength = tableMeta.getFiledLength();
         String boxedFiledLength = StringUtils.isNotBlank(filedLength) ? "(" + filedLength + ")" : "";
