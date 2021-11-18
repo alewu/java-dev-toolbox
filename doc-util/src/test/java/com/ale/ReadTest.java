@@ -5,34 +5,24 @@ import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
+import com.ale.util.SQLUtil;
 import com.ale.util.TestFileUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
-import com.google.common.base.CaseFormat;
-import com.google.common.collect.Maps;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 /**
  * Unit test for simple App.
  */
 public class ReadTest {
-    public static final Map<String, String> javaTypeToSqlType = Maps.newHashMapWithExpectedSize(100);
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ReadTest.class);
 
-    static {
-        javaTypeToSqlType.put("string", "varchar");
-        javaTypeToSqlType.put("int", "int");
-        javaTypeToSqlType.put("date", "datetime");
-    }
 
     @Test
     public void simpleRead() {
@@ -44,24 +34,13 @@ public class ReadTest {
         EasyExcel.read(fileName, TableMeta.class, new PageReadListener<TableMeta>(dataList -> {
             for (TableMeta tableMeta : dataList) {
                 //                LOGGER.info("读取到一条数据{}", JSONUtil.toJsonStr(tableMeta));
-                String filedName = tableMeta.getFiledName();
-                String lowerUnderscore = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, filedName);
-                String isMustInput = tableMeta.getIsMustInput();
-                String isNull = "Y".equals(isMustInput) ? "null" : "not null";
-                String filedType = tableMeta.getFiledType().toLowerCase(Locale.ROOT).trim();
-                String filedComment = tableMeta.getFiledComment();
-                String out = "    " + lowerUnderscore + "    " + javaTypeToSqlType.getOrDefault(filedType, "varchar" +
-                        "(64)") + "    " + isNull + " comment " + "'" + filedComment + "'" + ",";
+                String out = SQLUtil.generateDDL1(tableMeta);
 
                 System.out.println(out);
             }
         })).sheet("create").doRead();
     }
-    /*
-      uid      int                                          null comment '用户id',
-      device_id     varchar(64)                          null comment '银行卡持有人姓名',
-      os        varchar(64)                          null comment '开户行名称',
-     */
+
 
     @Test
     public void simpleReadSheet() {
@@ -73,12 +52,12 @@ public class ReadTest {
         EasyExcel.read(fileName, TableMeta.class, new PageReadListener<TableMeta>(dataList -> {
             for (TableMeta tableMeta : dataList) {
                 //                LOGGER.info("读取到一条数据{}", JSONUtil.toJsonStr(tableMeta));
-                String alter = generateDDL(tableMeta);
+                String alter = SQLUtil.generateDDLAlter(tableMeta);
                 System.out.println(alter);
             }
             String s = generateEntityFiled(dataList);
             System.out.println(s);
-        })).sheet("alter").doRead();
+        })).sheet("create").doRead();
     }
 
     public String generateEntityFiled(List<TableMeta> tableMetas) {
@@ -86,27 +65,10 @@ public class ReadTest {
         TemplateConfig templates = new TemplateConfig("templates",
                                                       TemplateConfig.ResourceMode.CLASSPATH);
         TemplateEngine engine = TemplateUtil.createEngine(templates);
-        Template template = engine.getTemplate("test.ftl");
+        Template template = engine.getTemplate("entity-property.ftl");
         return template.render(Dict.create().set("tableMetas", tableMetas));
     }
 
-
-    private String generateDDL(TableMeta tableMeta) {
-        String filedName = tableMeta.getFiledName();
-        String lowerUnderscore = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, filedName);
-        String isMustInput = tableMeta.getIsMustInput();
-        String isNull = "Y".equals(isMustInput) ? "not null" : "null";
-        String filedType = tableMeta.getFiledType().toLowerCase(Locale.ROOT).trim();
-        String filedLength = tableMeta.getFiledLength();
-        String boxedFiledLength = StringUtils.isNotBlank(filedLength) ? "(" + filedLength + ")" : "";
-        String filedComment = tableMeta.getFiledComment();
-        String tableName = tableMeta.getTableName();
-
-        return MessageFormat.format("alter table {0} add {1} {2}{3} {4} comment ''{5}'';",
-                                    tableName, lowerUnderscore,
-                                    javaTypeToSqlType.getOrDefault(filedType, "varchar"), boxedFiledLength, isNull,
-                                    filedComment);
-    }
 
 /*    alter table vaylien_user_base_info add column_16 varchar(64) null comment '助手';
       alter table vaylien_user_base_info add column_16 int not null comment '生活';

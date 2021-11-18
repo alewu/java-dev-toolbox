@@ -1,6 +1,7 @@
 package com.ale;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.io.FilenameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -78,6 +79,15 @@ class FileTest {
             Files.createFile(path1);
             Files.write(path1, ss);
         }
+    }
+
+    @Test
+    void testGetFileExtension() {
+        String fullName = "123.jpg";
+        String fileExtension = com.google.common.io.Files.getFileExtension(fullName);
+        Assertions.assertEquals("jpg", fileExtension);
+        String extension = FilenameUtils.getExtension(fullName);
+        Assertions.assertEquals("jpg", extension);
     }
 
     @Test
