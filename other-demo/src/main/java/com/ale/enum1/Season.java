@@ -8,8 +8,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 public enum Season {
-    //    SPRING("spring", 1),
-    //    SUMMER("summer", 2);
+    //    SPRING("spring", 3),
+    //    SUMMER("summer", 4);
     SPRING("spring", "1"),
     SUMMER("summer", "2");
 

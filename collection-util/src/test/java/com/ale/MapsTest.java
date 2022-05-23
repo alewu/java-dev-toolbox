@@ -128,5 +128,13 @@ import java.util.Map;
       System.out.println("==================测试diff - areEqual()方法===================" + mapDifference.areEqual());
    }
 
+   @Test
+   void testMap(){
+     Map<String, String> hashMap = new HashMap<>();
+      hashMap.put("134", "5678");
+      Map<String, Object> map = new HashMap<>(hashMap);
+      System.out.println(map);
+   }
+
 
 }

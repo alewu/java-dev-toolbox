@@ -39,14 +39,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     @Test
      void testCollUtil() {
         List<Integer> numbers = ImmutableList.of(1, 2, 3);
-        List<Integer> filter = CollUtil.filter(NUMBERS, (Editor<Integer>) integer -> {
-            if (!numbers.contains(integer)) {
-                return integer;
-            }
-            return null;
-        });
-        System.out.println(filter);
-        assertEquals(6, filter.size());
+//        List<Integer> filter = CollUtil.filter(NUMBERS, (Editor<Integer>) integer -> {
+//            if (!numbers.contains(integer)) {
+//                return integer;
+//            }
+//            return null;
+//        });
+//        System.out.println(filter);
+//        assertEquals(6, filter.size());
     }
 
 }
