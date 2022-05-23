@@ -1,9 +1,11 @@
 package com.ale;
 
+import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.safety.Whitelist;
+import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +19,24 @@ import java.nio.charset.StandardCharsets;
  * @date 2020/10/17
  */
 class JsoupTest {
+    @Test
+    void testJSoupFrom() throws IOException {
+        String s = FileUtils.readFileToString(new File("D://docs//接口文档.html"), StandardCharsets.UTF_8);
+        Document doc = Jsoup.parse(s);
+        Elements tables = doc.select("table");
+        for (Element element : tables) {
+            Elements trs = element.select("tr");
+            for (Element tr : trs) {
+                System.out.println(tr.text());
+                Elements tds = tr.select("td");
+                for (Element td : tds) {
+                    System.out.print(td.text() + ",");
+                }
+                System.out.println("");
+            }
+
+        }
+    }
 
 
     @Test
