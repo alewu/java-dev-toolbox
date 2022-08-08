@@ -1,5 +1,6 @@
 package com.ale.date;
 
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import org.junit.jupiter.api.Test;
@@ -124,6 +125,15 @@ import java.util.Date;
      @Test
      void testNow(){
          System.out.println(System.currentTimeMillis());
+         DateTime x = DateUtil.beginOfDay(new Date());
+         System.out.println(x);
+         System.out.println(DateUtil.parse("2022-08-07 00:00:01").compareTo(x) == 0);
+     }
+
+
+     @Test
+     void test(){
+         System.out.println(DateUtil.parse(null));
      }
 }
 

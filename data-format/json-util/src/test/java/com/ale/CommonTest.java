@@ -1,5 +1,6 @@
 package com.ale;
 
+import cn.hutool.core.codec.Base64Encoder;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.jupiter.api.Test;
