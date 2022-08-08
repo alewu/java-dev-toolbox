@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class JavaParserGetEnumTest {
-    public static final String ROOT = "D:\\code\\loan\\cash2-nr";
+    public static final String ROOT = "D:\\code\\loan\\cash2-vn";
     public static final String PROJECT = "\\";
 
     @Test
@@ -47,11 +47,11 @@ public class JavaParserGetEnumTest {
     @Test
     void testGetEnum() throws FileNotFoundException {
 
-        Map<String, String> map = getMap("D:\\code\\java-dev-toolbox\\io-util\\test.txt");
+        Map<String, String> map = getMap("D:\\docs\\projects\\VN\\国际化.txt");
         List<File> files = FileUtil.loopFiles(ROOT + PROJECT, file -> file.getName().endsWith(".java"));
 //        List<File> files = Lists.newArrayList();
-        File file1 = new File("D:\\code\\loan\\cash2-nr");
-        files.add(file1);
+//        File file1 = new File("D:\\code\\loan\\cash2-vn");
+//        files.add(file1);
         JavaParser parser = JavaParseUtil.getSourceParser(ROOT);
         for (File file : files) {
             ParseResult<CompilationUnit> parseResult = parser.parse(file);
@@ -73,30 +73,32 @@ public class JavaParserGetEnumTest {
 
                         String value = map.get(id);
 
-//                        if (StringUtils.isEmpty(value)) {
-//                            continue;
-//                        }
+                        if (StringUtils.isEmpty(value)) {
+                            continue;
+                        }
 
 //                        System.out.println(id);
                         NodeList<Expression> arguments = entry.getArguments();
                         List<String> argumentValues = getArgumentValues(arguments);
                         // 匹配泰文
-                        boolean anyMatch = argumentValues.stream().anyMatch(a -> a.matches("[\u0E00-\u0E7F]+"));
-                        if (anyMatch) {
-                            System.out.println(entry);
+//                        boolean anyMatch = argumentValues.stream().anyMatch(a -> a.matches("[\u0E00-\u0E7F]+"));
+//                        System.out.println(argumentValues);
+                        boolean anyMatch = argumentValues.stream().filter(StrUtil::isNotBlank).anyMatch(a -> isThai(a.charAt(0)));
+                        if (true) {
+//                            System.out.println("value:" + value + " 替换前：" + entry);
                             StringLiteralExpr stringLiteralExpr = new StringLiteralExpr();
 
-//                            stringLiteralExpr.setValue(value);
+                            stringLiteralExpr.setValue(value);
                             // 修改最后一个参数
                             entry.setArgument(arguments.size() - 1, stringLiteralExpr);
 //                            targetEnumDeclarations.add(entry);
-                            System.out.println(entry);
+//                            System.out.println("替换后：" + entry);
                         }
                     }
 
                     String print = LexicalPreservingPrinter.print(cu);
                     //                System.out.println(print);
-//                    FileUtil.writeString(print, file, StandardCharsets.UTF_8);
+                    FileUtil.writeString(print, file, StandardCharsets.UTF_8);
 
                 }
 
@@ -110,9 +112,15 @@ public class JavaParserGetEnumTest {
                 .collect(Collectors.toCollection(() -> Lists.newArrayListWithExpectedSize(arguments.size())));
     }
 
+
+    public static boolean isThai(char c) {
+        Character.UnicodeScript sc = Character.UnicodeScript.of(c);
+        return sc == Character.UnicodeScript.THAI;
+    }
+
     @Test
     public void testParse() {
-        Map<String, String> map = getMap("D:\\code\\java-dev-toolbox\\io-util\\test.txt");
+        Map<String, String> map = getMap("D:\\docs\\projects\\VN\\国际化.txt");
         System.out.println(map);
 
     }
