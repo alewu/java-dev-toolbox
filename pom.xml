@@ -33,7 +33,7 @@
 
         <!--tool start-->
         <guava.version>31.0.1-jre</guava.version>
-        <hutool.version>5.7.15</hutool.version>
+        <hutool.version>5.8.5</hutool.version>
         <jodd.version>5.0.12</jodd.version>
         <commons-lang3.version>3.10</commons-lang3.version>
         <!--tool end-->
