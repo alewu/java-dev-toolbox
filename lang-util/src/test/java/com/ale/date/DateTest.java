@@ -9,7 +9,9 @@ import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
- class DateTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class DateTest {
 
 
     @Test
@@ -134,6 +136,15 @@ import java.util.Date;
      @Test
      void test(){
          System.out.println(DateUtil.parse(null));
+     }
+
+
+     @Test
+     void test123(){
+         LocalDateTime localDateTime = LocalDateTime.now();
+         long epochMilli = localDateTime.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+         long time = DateUtil.beginOfDay(new Date()).getTime();
+         assertEquals(time, epochMilli);
      }
 }
 
