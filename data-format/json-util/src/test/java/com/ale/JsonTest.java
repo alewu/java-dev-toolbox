@@ -2,11 +2,15 @@ package com.ale;
 
 import com.ale.bean.CustomTag;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class JsonTest {
 
@@ -33,5 +37,25 @@ public class JsonTest {
         String json = "{\"type\":2,\"frequentlyLink\":\"1\"}";
         List<JSONObject> jsonObjects = JSON.parseArray(json, JSONObject.class);
         System.out.println(json);
+    }
+
+    @Test
+    void test2(){
+        String json = "";
+        JSONObject jsonObject = JSON.parseObject(json);
+        Object responseBody = jsonObject.get("responseBody");
+        JSONArray jsonArray = JSON.parseArray(responseBody.toString());
+
+        JsonPath path = JsonPath.compile("$.responseBody[*]");
+        List<LinkedHashMap<String, Object>> rvNoRecords3 = path.read(json);
+        List<LinkedHashMap<String, Object>> ussdTemplate = rvNoRecords3.stream().filter(x -> Objects.nonNull(x.get(
+                "ussdTemplate"))).collect(Collectors.toList());
+        for (LinkedHashMap<String, Object> o : ussdTemplate) {
+            if (Objects.nonNull(o.get("ussdTemplate"))) {
+                System.out.println(o);
+            }
+
+        }
+        System.out.println(ussdTemplate.size());
     }
 }
