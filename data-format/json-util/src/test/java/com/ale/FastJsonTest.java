@@ -1,6 +1,7 @@
 package com.ale;
 
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ReUtil;
 import com.ale.bean.CareerScoreInfo;
@@ -13,8 +14,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 class FastJsonTest {
 
@@ -156,6 +162,38 @@ class FastJsonTest {
                                                                           new TypeReference<CreditResponse<CareerScoreInfo>>() {
                                                                           });
         System.out.println(creditResponse.getData());
+    }
+
+    @Test
+    void test(){
+        String a = FileUtil.readString(new File("D:\\code\\java-dev-toolbox\\data-format\\json-util\\src\\test\\resources\\demo" +
+                                             ".json"), StandardCharsets.UTF_8);
+        List<FetchUserApplistDto> newDtos = JSON.parseArray(a, FetchUserApplistDto.class);
+        String firstTime = "2009-01-01 01:00:00";
+        newDtos = newDtos.stream().filter(FetchUserApplistDto -> {
+            try {
+                return Objects.nonNull(FetchUserApplistDto.getFirstTime()) &&DateUtil.getDate(firstTime).before(DateUtil.getDate(FetchUserApplistDto.getFirstTime()));
+            } catch (ParseException e) {
+                return false;
+            }
+        }).collect(Collectors.toList());
+        System.out.println("IzFNUVotED8AAAAAAAAAgwFJbmZpbml4IFguLi4gKDIzMylBZ1UxT1RRekFFQVhBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB".length());
+
+        JSONArray jsonArray = JSON.parseArray("[]");
+        if (jsonArray.size()==1) {
+        }
+        List<CareerScoreInfo> careerScoreInfos = JSON.parseArray("[{}]", CareerScoreInfo.class);
+        System.out.println(careerScoreInfos);
+    }
+
+    public static boolean isJsonEmpty(String json) {
+        JSONObject jsonObject = JSON.parseObject(json);
+        for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
+            if (entry.getValue() != null) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

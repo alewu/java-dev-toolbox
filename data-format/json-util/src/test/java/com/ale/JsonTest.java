@@ -1,6 +1,7 @@
 package com.ale;
 
 import com.ale.bean.CustomTag;
+import com.ale.util.JsonUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -22,7 +24,7 @@ public class JsonTest {
                 "    \"gender\": 1,\n" +
                 "    \"isSubscribe\": 1,\n" +
                 "    \"customTag\": {\n" +
-                "        \"payStatus\": \"\",\n" +
+                "        \"payStatus\": \"12\",\n" +
                 "        \"isPurchased\": \"\"\n" +
                 "    }\n" +
                 "}";
@@ -30,13 +32,23 @@ public class JsonTest {
         String string = jsonObject.getString("customTag");
         CustomTag customTag = JSON.parseObject(string, CustomTag.class);
         System.out.println(Objects.isNull(customTag));
+
+        Map<String, Object> objectMap = JsonUtils.toMap(json);
+        Object tag = objectMap.get("customTag");
+        Map<String, Object> toMap = JsonUtils.toMap(tag);
+        System.out.println(toMap.get("payStatus"));
     }
 
     @Test
     void test1(){
         String json = "{\"type\":2,\"frequentlyLink\":\"1\"}";
-        List<JSONObject> jsonObjects = JSON.parseArray(json, JSONObject.class);
-        System.out.println(json);
+//        List<JSONObject> jsonObjects = JSON.parseArray(json, JSONObject.class);
+
+        JSONObject jsonObject = JsonUtils.parseObj(json, JSONObject.class);
+        Map<String, Object> map = JsonUtils.toMap(json);
+        int type = JsonUtils.getIntValue(map, "frequentlyLink");
+        System.out.println(type);
+        System.out.println(jsonObject);
     }
 
     @Test

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.ReadContext;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -97,6 +98,13 @@ class JsonPathTest {
         }
         System.out.println(" 1ss " + (System.currentTimeMillis() - start));
 
+    }
+
+    @Test
+    void test12(){
+        ReadContext ctx = JsonPath.parse(json);
+        List<String> authorsOfBooksWithISBN = ctx.read("$.store.book[?(@.isbn)].author");
+        System.out.println(authorsOfBooksWithISBN);
     }
 
     @Test
