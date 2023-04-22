@@ -38,4 +38,16 @@ class PathTest {
             Files.createDirectories(parent);
         }
     }
+
+
+    @Test
+    void testPath1(){
+        System.out.println("path4:" +System.getProperty("user.dir"));
+
+        String classPath = ChineseUtil.class.getResource("").getPath();
+        System.out.println(classPath);
+        String file = Thread.currentThread().getContextClassLoader().getResource("").getFile();
+        System.out.println(file);
+
+    }
 }
