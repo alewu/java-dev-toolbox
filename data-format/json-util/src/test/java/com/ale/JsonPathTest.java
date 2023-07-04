@@ -1,8 +1,6 @@
 package com.ale;
 
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.lang.Snowflake;
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -63,7 +61,9 @@ class JsonPathTest {
         //获取单个值
         long start = System.currentTimeMillis();
         String roleId1 = JsonPath.read(json, "$.store.bicycle.color");
+        Integer price1 = JsonPath.read(json, "$.store.bicycle.price");
         System.out.println("color:" + roleId1);
+        System.out.println("price:" + price1);
         System.out.println(System.currentTimeMillis() - start);
     }
 
@@ -160,13 +160,6 @@ class JsonPathTest {
         Object byPath1 = entries.getByPath("code");
         System.out.println(byPath);
         System.out.println(byPath1);
-    }
-
-    @Test
-    void test112(){
-        Snowflake snowflake = IdUtil.getSnowflake();
-        long x = snowflake.nextId();
-        System.out.println(x);
     }
 
 

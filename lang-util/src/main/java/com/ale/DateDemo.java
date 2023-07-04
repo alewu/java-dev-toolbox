@@ -1,5 +1,6 @@
 package com.ale;
 
+import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 
 import java.time.Instant;
@@ -18,5 +19,7 @@ public class DateDemo {
         System.out.println(DateUtil.date(newScore));
 
         System.out.println(System.currentTimeMillis());
+
+        System.out.println(DateUtil.between(DateUtil.parseDate("2022-03-09"),DateUtil.parseDate( "2022-12-31"), DateUnit.DAY));
     }
 }

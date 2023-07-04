@@ -10,7 +10,7 @@ import java.util.Random;
 /**
  * 从List中获取随机元素
  */
-class RandomElementFromListTest {
+class RandomElementFromListCollectionTest {
 
     /**
      * 单个随机元素
