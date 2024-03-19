@@ -13,13 +13,13 @@ public class GodaddyRestfulUtil {
 
     public static final String BASE_URL = "https://api.godaddy.com";
 
-    public static final String TOKEN = "";
+    public static final String AUTHORIZATION_TOKEN = "sso-key " + System.getenv("GODADDY_API_KEY") + ":" + System.getenv("GODADDY_API_SECRET");
 
     public static String listDomains() {
         HttpRequest get = HttpUtil.createGet(BASE_URL + "/v1/domains");
         return get
                 .setHttpProxy("127.0.0.1", 4780)
-                .auth(TOKEN)
+                .auth(AUTHORIZATION_TOKEN)
                 .execute()
                 .body();
     }
@@ -28,7 +28,7 @@ public class GodaddyRestfulUtil {
         HttpRequest get = HttpUtil.createGet(BASE_URL + "/v1/domains/available" +"?domain="+ domain);
         return get
                 .setHttpProxy("127.0.0.1", 4780)
-                .auth(TOKEN)
+                .auth(AUTHORIZATION_TOKEN)
                 .execute()
                 .body();
     }
@@ -37,7 +37,7 @@ public class GodaddyRestfulUtil {
         HttpRequest get = HttpUtil.createGet(BASE_URL + "/v1/domains/suggest" +"?query="+ domain);
         return get
                 .setHttpProxy("127.0.0.1", 4780)
-                .auth(TOKEN)
+                .auth(AUTHORIZATION_TOKEN)
                 .execute()
                 .body();
     }
@@ -46,7 +46,7 @@ public class GodaddyRestfulUtil {
         HttpRequest get = HttpUtil.createGet(StrUtil.format(BASE_URL + "/v1/domains/{}", domain));
         return get
                 .setHttpProxy("127.0.0.1", 4780)
-                .auth(TOKEN)
+                .auth(AUTHORIZATION_TOKEN)
                 .execute()
                 .body();
     }
@@ -55,7 +55,7 @@ public class GodaddyRestfulUtil {
         HttpRequest get = HttpUtil.createGet(StrUtil.format(BASE_URL + "/v1/domains/{}/records", domain));
         return get
                 .setHttpProxy("127.0.0.1", 4780)
-                .auth(TOKEN)
+                .auth(AUTHORIZATION_TOKEN)
                 .timeout(30 * 1000)
                 .execute()
                 .body();
@@ -66,7 +66,7 @@ public class GodaddyRestfulUtil {
         HttpRequest post = HttpUtil.createRequest(Method.PATCH, StrUtil.format(BASE_URL + "/v1/domains/{}/records", domain));
         String body = post
                 .setHttpProxy("127.0.0.1", 4780)
-                .auth(TOKEN)
+                .auth(AUTHORIZATION_TOKEN)
                 .contentType("application/json")
                 .body("[" +
                         "    {\n" +
