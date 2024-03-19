@@ -1,5 +1,6 @@
 package com.ale;
 
+import cn.hutool.core.map.MapUtil;
 import com.ale.data.DataGenerator;
 import com.ale.data.bean.User;
 import com.google.common.collect.*;
@@ -69,11 +70,15 @@ import java.util.Map;
         map3.put("a", "111");
         map3.put("b", "211");
         map3.put("c", "211");
+       map3.put("d", null);
         Map<String, Object> map4 = new HashMap<>();
         map4.put("a", "111");
         map4.put("b", "211");
         map4.put("c", "211");
         System.out.println(map3.equals(map4));
+
+       String ok = MapUtil.sortJoin(map3, "&", "=", true, "&key=", "ok");
+       System.out.println(ok);
 
     }
 
@@ -134,7 +139,18 @@ import java.util.Map;
       hashMap.put("134", "5678");
       Map<String, Object> map = new HashMap<>(hashMap);
       System.out.println(map);
+
+
    }
+
+    private static final Map<Integer, Integer> map = ImmutableMap.of(1, 2, 2, 1, 3, 3, 4, 4, 5, 4, 6, 4);
+
+    @Test
+    void testMap1(){
+        System.out.println(map.get(1));
+
+
+    }
 
 
 }

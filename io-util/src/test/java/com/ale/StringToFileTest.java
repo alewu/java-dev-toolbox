@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 
 class StringToFileTest {
 
@@ -24,5 +25,13 @@ class StringToFileTest {
     void testStringToFileAppend() {
         String out = "Its a test for interpreter.";
         FileUtils.writeStringToFile(new File("test.txt"), out, StandardCharsets.UTF_8, true);
+    }
+
+    @SneakyThrows
+    @Test
+    void testString() {
+        String out = "Its a test for interpreter. %s";
+        String format = String.format(out, "12334");
+        System.out.println(format);
     }
 }

@@ -1,6 +1,8 @@
 package com.ale.util;
 
-import com.alibaba.fastjson.JSON;
+
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -155,7 +157,7 @@ public class JsonUtils {
 
         @Override
         public String toJsonStr(Object object) {
-            return com.alibaba.fastjson.JSONObject.toJSONString(object);
+            return JSONObject.toJSONString(object);
         }
 
         @Override

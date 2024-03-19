@@ -7,11 +7,14 @@ import cn.hutool.core.util.ReUtil;
 import com.ale.bean.CareerScoreInfo;
 import com.ale.bean.CreditResponse;
 import com.ale.bean.Fee;
+import com.ale.bean.FetchUserApplistDto;
 import com.ale.bean.UserDeviceInfo;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
+
+
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.TypeReference;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -50,6 +53,10 @@ class FastJsonTest {
         userDeviceInfo.setAvailableStorage("2.3G");
         userDeviceInfo.setIsRoot("1");
         userDeviceInfo.setIsWifi("0");
+
+        JSONObject o = (JSONObject) JSON.toJSON(userDeviceInfo);
+        String isRoot = o.getString("isRoot");
+        System.out.println(isRoot);
 
         String s = JSONObject.toJSONString(userDeviceInfo);
         System.out.println(s);
@@ -196,4 +203,18 @@ class FastJsonTest {
         return true;
     }
 
+
+    @Test
+    void testNestFastJson() {
+        String json = "{\"update_time\":\"2021-10-31 09:41:38\",\"status\":1,\"error\":\"查询成功\"," +
+                "\"data\":{\"score\":\"451\",\"name\":\"张三\",\"address\":\"北京市 " +
+                "朝阳区,\",\"phoneMatched\":true}}";
+        CreditResponse<CareerScoreInfo> creditResponse = JSON.parseObject(json,
+                new TypeReference<CreditResponse<CareerScoreInfo>>() {
+                });
+        System.out.println(creditResponse.getData());
+
+        String s = com.alibaba.fastjson2.JSON.toJSONString(creditResponse);
+        System.out.println(s);
+    }
 }

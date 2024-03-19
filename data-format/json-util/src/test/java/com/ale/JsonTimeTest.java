@@ -9,7 +9,8 @@ import com.ale.bean.User;
 import com.ale.bean.UserAlbumInfo;
 import com.ale.bean.UserDTO;
 import com.ale.util.JsonUtil;
-import com.alibaba.fastjson.JSON;
+
+import com.alibaba.fastjson2.JSON;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Test;
 
