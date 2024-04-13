@@ -4,7 +4,7 @@ package com.ale.bean;
  * Copyright 2021 bejson.com
  */
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 
 @Data

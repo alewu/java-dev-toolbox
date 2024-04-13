@@ -10,6 +10,7 @@ import cn.hutool.json.JSONUtil;
 import java.util.List;
 
 /**
+ * https://developer.godaddy.com/doc/endpoint/domains#/
  * The type Godaddy restful util.
  *
  * @author Administrator

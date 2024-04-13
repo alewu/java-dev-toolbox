@@ -6,6 +6,7 @@ import cn.hutool.core.date.DateUtil;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.TimeZone;
 
 
 public class DateDemo {
@@ -21,5 +22,15 @@ public class DateDemo {
         System.out.println(System.currentTimeMillis());
 
         System.out.println(DateUtil.between(DateUtil.parseDate("2022-03-09"),DateUtil.parseDate( "2022-12-31"), DateUnit.DAY));
+
+        System.out.println(TimeZone.getDefault().getDisplayName());
+
+        System.out.println(TimeZone.getDefault());
+
+        System.out.println( TimeZone.getTimeZone("UTC") );
+
+        ZoneId zoneId = TimeZone.getDefault().toZoneId();
+        System.out.println(zoneId);
+        System.out.println(ZoneId.systemDefault().getId());
     }
 }

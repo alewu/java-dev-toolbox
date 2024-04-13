@@ -3,15 +3,10 @@ package com.ale;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.text.csv.CsvReader;
 import cn.hutool.core.text.csv.CsvUtil;
-import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,9 +16,9 @@ public class CsvTest {
 
     @Test
     void test() {
-        String path = "D:\\code\\java-dev-toolbox\\io-util\\src\\test\\resources\\ng_bank.csv";
+        String path = "xx";
 
-        String sql = "INSERT INTO `loan_pay`.`t_pay_bank_map`(`common_bank_code`, `third_bank_code`, `pay_channel`) VALUES ('%s', '%s', 'monnify');";
+        String sql = "xx";
 
         CsvReader reader = CsvUtil.getReader();
         //假设csv文件在classpath目录下
