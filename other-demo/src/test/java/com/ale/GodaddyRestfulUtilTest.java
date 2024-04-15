@@ -4,6 +4,8 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.json.JSONUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -43,14 +45,16 @@ class GodaddyRestfulUtilTest {
         System.out.println(JSONUtil.formatJsonStr(body));
     }
 
-    @Test
-    void getDomainDetail() {
-        String domains = GodaddyRestfulUtil.getDomainDetail("");
+    @ParameterizedTest
+    @ValueSource(strings = {"xxx.xyz"})
+    void getDomainDetail(String domainName) {
+        String domains = GodaddyRestfulUtil.getDomainDetail(domainName);
         System.out.println(JSONUtil.formatJsonStr(domains));
     }
 
-    @Test
-    void getDNSRecord() {
+    @ParameterizedTest
+    @ValueSource(strings = {"xxx.xyz"})
+    void getDNSRecord(String domainName) {
         String domains = GodaddyRestfulUtil.getDNSRecord(domainName);
         String formatJsonStr = JSONUtil.formatJsonStr(domains);
         System.out.println(formatJsonStr);
@@ -58,7 +62,8 @@ class GodaddyRestfulUtilTest {
     }
 
     @Test
-    void addDNSRecords() {
+    @ValueSource(strings = {"xxx.xyz"})
+    void addDNSRecords(String domainName) {
         List<DNSRecord> dnsRecords = new ArrayList<>();
         DNSRecord dnsRecord = new DNSRecord();
         dnsRecord.setData("172.23.53.4");
