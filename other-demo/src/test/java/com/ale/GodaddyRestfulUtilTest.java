@@ -22,7 +22,7 @@ class GodaddyRestfulUtilTest {
 
     @BeforeEach
     void init() {
-        domainName = "xxx.xyz";
+        domainName = "xxx.com";
     }
 
     @Test
@@ -30,7 +30,8 @@ class GodaddyRestfulUtilTest {
         String domains = GodaddyRestfulUtil.listDomains();
         String formatJsonStr = JSONUtil.formatJsonStr(domains);
         System.out.println(formatJsonStr);
-        FileUtil.writeString(formatJsonStr, new File("./formatJsonStr.json"), StandardCharsets.UTF_8);
+        String pathname = String.format("./%s_domains.json", "Godaddy");
+        FileUtil.writeString(formatJsonStr, new File(pathname), StandardCharsets.UTF_8);
     }
 
     @Test
@@ -46,22 +47,37 @@ class GodaddyRestfulUtilTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"xxx.xyz"})
+    @ValueSource(strings = {"xxx.com"})
     void getDomainDetail(String domainName) {
         String domains = GodaddyRestfulUtil.getDomainDetail(domainName);
         System.out.println(JSONUtil.formatJsonStr(domains));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"xxx.xyz"})
+    @ValueSource(strings = {"xxx.cc"})
     void getDNSRecord(String domainName) {
-        String domains = GodaddyRestfulUtil.getDNSRecord(domainName);
+        String domains = GodaddyRestfulUtil.getAllDNSRecord(domainName);
         String formatJsonStr = JSONUtil.formatJsonStr(domains);
         System.out.println(formatJsonStr);
-        FileUtil.writeString(formatJsonStr, new File(String.format("./%sDNSRecordFormatJsonStr.json", domainName)), StandardCharsets.UTF_8);
+        String pathname = String.format("./%s_dns_records.json", domainName);
+        FileUtil.writeString(formatJsonStr, new File(pathname), StandardCharsets.UTF_8);
     }
 
-    @Test
+
+    @ParameterizedTest
+    @ValueSource(strings = {"xxx.com"})
+    void retrieveDNSRecordsOptionallyWithTheSpecifiedType(String domainName) {
+        String type = "A";
+        String name = "";
+        String dnsRecords = GodaddyRestfulUtil.retrieveDNSRecordsOptionallyWithTheSpecifiedType(domainName, type, name);
+
+        String formatJsonStr = JSONUtil.formatJsonStr(dnsRecords);
+        System.out.println(formatJsonStr);
+        String pathname = String.format("./%s_%s_dns_records.json", domainName, type);
+        FileUtil.writeString(formatJsonStr, new File(pathname), StandardCharsets.UTF_8);
+    }
+
+    @ParameterizedTest
     @ValueSource(strings = {"xxx.xyz"})
     void addDNSRecords(String domainName) {
         List<DNSRecord> dnsRecords = new ArrayList<>();
@@ -82,7 +98,24 @@ class GodaddyRestfulUtilTest {
     }
 
     @Test
-    void replaceDNSRecords() {
+    void addTextDNSRecords() {
+        String type = "TXT";
+
+        List<DNSRecord> dnsRecords = new ArrayList<>();
+        DNSRecord dnsRecord = new DNSRecord();
+        dnsRecord.setData("2023052200000049");
+        dnsRecord.setName("_dnsauth.xx");
+        dnsRecord.setTtl(600);
+        dnsRecord.setType(type);
+
+        dnsRecords.add(dnsRecord);
+        GodaddyRestfulUtil.addDNSRecords(domainName, dnsRecords);
+    }
+
+    @Test
+    void replaceAllDNSRecordsWithTheSpecifiedType() {
+
+        String type = "A";
 
         List<DNSRecord> dnsRecords = new ArrayList<>();
         DNSRecord dnsRecord = new DNSRecord();
@@ -92,7 +125,15 @@ class GodaddyRestfulUtilTest {
         dnsRecord.setType("A");
 
         dnsRecords.add(dnsRecord);
-        GodaddyRestfulUtil.replaceDNSRecords(domainName,"A", dnsRecords);
+        GodaddyRestfulUtil.replaceAllDNSRecordsWithTheSpecifiedType(domainName, type, dnsRecords);
 
     }
+
+    @Test
+    void deleteDNSRecords() {
+        String type = "A";
+        String name = "web";
+        GodaddyRestfulUtil.deleteDNSRecords(domainName, type, name);
+    }
+
 }
