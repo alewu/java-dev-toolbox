@@ -1,5 +1,6 @@
 package com.ale;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.json.JSONUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +22,12 @@ class GodaddyRestfulUtilTest {
 
     private String domainName;
 
+    private String dateTimeStr;
+
     @BeforeEach
     void init() {
         domainName = "xxx.com";
+        dateTimeStr = DateUtil.format(DateUtil.date(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
     }
 
     @Test
@@ -30,7 +35,7 @@ class GodaddyRestfulUtilTest {
         String domains = GodaddyRestfulUtil.listDomains();
         String formatJsonStr = JSONUtil.formatJsonStr(domains);
         System.out.println(formatJsonStr);
-        String pathname = String.format("./%s_domains.json", "Godaddy");
+        String pathname = String.format("./domains_%s_%s.json", "Godaddy", dateTimeStr);
         FileUtil.writeString(formatJsonStr, new File(pathname), StandardCharsets.UTF_8);
     }
 
@@ -59,13 +64,13 @@ class GodaddyRestfulUtilTest {
         String domains = GodaddyRestfulUtil.getAllDNSRecord(domainName);
         String formatJsonStr = JSONUtil.formatJsonStr(domains);
         System.out.println(formatJsonStr);
-        String pathname = String.format("./%s_dns_records.json", domainName);
+        String pathname = String.format("./dns_records_%s_%s.json", domainName, dateTimeStr);
         FileUtil.writeString(formatJsonStr, new File(pathname), StandardCharsets.UTF_8);
     }
 
 
     @ParameterizedTest
-    @ValueSource(strings = {"xxx.com"})
+    @ValueSource(strings = {"arctco-technology-ltd.com"})
     void retrieveDNSRecordsOptionallyWithTheSpecifiedType(String domainName) {
         String type = "A";
         String name = "";
@@ -73,7 +78,7 @@ class GodaddyRestfulUtilTest {
 
         String formatJsonStr = JSONUtil.formatJsonStr(dnsRecords);
         System.out.println(formatJsonStr);
-        String pathname = String.format("./%s_%s_dns_records.json", domainName, type);
+        String pathname = String.format("./dns_records_%s_%s_%s.json", domainName, type, dateTimeStr);
         FileUtil.writeString(formatJsonStr, new File(pathname), StandardCharsets.UTF_8);
     }
 
