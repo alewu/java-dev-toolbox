@@ -2,7 +2,6 @@ package com.ale;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.EnumUtil;
-import com.ale.enum1.AdvancePayEnum;
 import com.ale.enum1.Season;
 import com.google.common.base.Converter;
 import com.google.common.base.Enums;
@@ -18,7 +17,7 @@ public class EnumUtilTest {
     @Test
     void test(){
 //        convertToMap();
-        convertToMap2(AdvancePayEnum.class);
+//        convertToMap2(AdvancePayEnum.class);
 
 
     }

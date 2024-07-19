@@ -3,29 +3,28 @@ package com.ale;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.ReUtil;
 import com.ale.bean.CareerScoreInfo;
 import com.ale.bean.CreditResponse;
 import com.ale.bean.Fee;
-import com.ale.bean.FetchUserApplistDto;
 import com.ale.bean.UserDeviceInfo;
-
-
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.TypeReference;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 class FastJsonTest {
+
+    @Test
+    void test(){
+        String json = FileUtil.readString("C:\\Users\\wywuj\\Desktop\\addressBook_20240626_07063073226.json", CharsetUtil.UTF_8);
+        System.out.println(JSON.parseArray(json));
+    }
 
     @Test
     void testJsonStrToJavaBean() {
@@ -170,39 +169,6 @@ class FastJsonTest {
                                                                           });
         System.out.println(creditResponse.getData());
     }
-
-    @Test
-    void test(){
-        String a = FileUtil.readString(new File("D:\\code\\java-dev-toolbox\\data-format\\json-util\\src\\test\\resources\\demo" +
-                                             ".json"), StandardCharsets.UTF_8);
-        List<FetchUserApplistDto> newDtos = JSON.parseArray(a, FetchUserApplistDto.class);
-        String firstTime = "2009-01-01 01:00:00";
-        newDtos = newDtos.stream().filter(FetchUserApplistDto -> {
-            try {
-                return Objects.nonNull(FetchUserApplistDto.getFirstTime()) &&DateUtil.getDate(firstTime).before(DateUtil.getDate(FetchUserApplistDto.getFirstTime()));
-            } catch (ParseException e) {
-                return false;
-            }
-        }).collect(Collectors.toList());
-        System.out.println("IzFNUVotED8AAAAAAAAAgwFJbmZpbml4IFguLi4gKDIzMylBZ1UxT1RRekFFQVhBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB".length());
-
-        JSONArray jsonArray = JSON.parseArray("[]");
-        if (jsonArray.size()==1) {
-        }
-        List<CareerScoreInfo> careerScoreInfos = JSON.parseArray("[{}]", CareerScoreInfo.class);
-        System.out.println(careerScoreInfos);
-    }
-
-    public static boolean isJsonEmpty(String json) {
-        JSONObject jsonObject = JSON.parseObject(json);
-        for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
-            if (entry.getValue() != null) {
-                return false;
-            }
-        }
-        return true;
-    }
-
 
     @Test
     void testNestFastJson() {
