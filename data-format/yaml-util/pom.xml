@@ -17,8 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <snakeyaml.version>2.4</snakeyaml.version>
     </properties>
 
     <dependencies>
@@ -26,7 +25,7 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.30</version>
+            <version>${snakeyaml.version}</version>
         </dependency>
     </dependencies>
 

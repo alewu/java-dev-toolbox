@@ -17,8 +17,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <dom4j.version>2.1.3</dom4j.version>
+        <sax.version>2.0.1</sax.version>
+        <xstream.version>1.4.21</xstream.version>
+        <jaxen.version>1.2.0</jaxen.version>
     </properties>
 
     <dependencies>
@@ -27,25 +29,25 @@
         <dependency>
             <groupId>org.dom4j</groupId>
             <artifactId>dom4j</artifactId>
-            <version>2.1.3</version>
+            <version>${dom4j.version}</version>
         </dependency>
 
         <dependency>
             <groupId>sax</groupId>
             <artifactId>sax</artifactId>
-            <version>2.0.1</version>
+            <version>${sax.version}</version>
         </dependency>
         <!-- xml end -->
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.19</version>
+            <version>${xstream.version}</version>
         </dependency>
 
         <dependency>
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>
-            <version>1.2.0</version>
+            <version>${jaxen.version}</version>
         </dependency>
     </dependencies>
 
