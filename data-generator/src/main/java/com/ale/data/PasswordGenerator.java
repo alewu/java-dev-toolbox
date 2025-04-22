@@ -1,31 +1,33 @@
 package com.ale.data;
 
 import java.security.SecureRandom;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 public class PasswordGenerator {
 
-    private static final String NUMBERS = "23456789";
-    private static final String LOWERCASE_LETTERS = "abcdefghjkmnpqrstuvwxyz";
-    private static final String UPPERCASE_LETTERS = "ABCDEFGHIJKLMNPQRSTUVWXYZ";
+    private static final String NUMBERS = "0123456789";
+    private static final String LOWERCASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
+    private static final String UPPERCASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String COMMON_SYMBOLS_F = "()`~!@#$%^&*-_+=|{}[]:;'<>,.?";
 
-    private static final String COMMON_SYMBOLS = "()`~!@#$%^&*-_+=|{}[]:;'<>,.?";
+    // 过滤相似字符（类似：i, l, 1, L, o, O, 0）
+    private static final String SIMILAR_CHARACTERS = "ilLoO10";
+    private static final String COMMON_SYMBOLS = "~!@#$%^&*()_+";
 
     private static final SecureRandom random = new SecureRandom();
 
     public static void main(String[] args) {
         int numberOfPasswords = 6; // 生成数量
-        int passwordLength = 20;   // 密码长度
+        int passwordLength = 8;   // 密码长度
 
         boolean includeNumbers = true;
         boolean includeLowercase = true;
         boolean includeUppercase = true;
         boolean includeSymbols = true;
+        boolean excludeSymbols = true;
 
-        String characterSet = createCharacterSet(includeNumbers, includeLowercase, includeUppercase, includeSymbols);
+        String characterSet = createCharacterSet(includeNumbers, includeLowercase,
+                includeUppercase, includeSymbols, excludeSymbols);
 
         validateCharacterSet(characterSet, passwordLength);
 
@@ -35,22 +37,34 @@ public class PasswordGenerator {
         }
     }
 
-    private static String createCharacterSet(boolean includeNumbers, boolean includeLowercase, boolean includeUppercase, boolean includeSymbols) {
-        StringBuilder stringBuilder = new StringBuilder();
+    private static String createCharacterSet(boolean includeNumbers, boolean includeLowercase,
+                                             boolean includeUppercase, boolean includeSymbols,
+                                             boolean excludeSimilarCharacters) {
+        StringBuilder sb = new StringBuilder();
         if (includeNumbers) {
-            stringBuilder.append(NUMBERS);
+            sb.append(NUMBERS);
         }
         if (includeLowercase) {
-            stringBuilder.append(LOWERCASE_LETTERS);
+            sb.append(LOWERCASE_LETTERS);
         }
         if (includeUppercase) {
-            stringBuilder.append(UPPERCASE_LETTERS);
+            sb.append(UPPERCASE_LETTERS);
         }
         if (includeSymbols) {
-            stringBuilder.append(COMMON_SYMBOLS);
+            sb.append(COMMON_SYMBOLS);
+        }
+        if (excludeSimilarCharacters) {
+            return excludeChars(sb.toString(), SIMILAR_CHARACTERS);
         }
 
-        return stringBuilder.toString();
+        return sb.toString();
+    }
+
+    public static String excludeChars(String input, String charsToExclude) {
+        // 构建正则表达式，匹配要排除的字符集合
+        String regex = "[" + charsToExclude + "]";
+        // 使用replaceAll替换掉所有匹配的字符
+        return input.replaceAll(regex, "");
     }
 
     private static void validateCharacterSet(String characterSet, int passwordLength) {
